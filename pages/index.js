@@ -104,7 +104,7 @@ export default function Home() {
 
             <Button
               variant="contained"
-              endIcon={<ArrowForwardIos color="disabled" />}
+              endIcon={<ArrowForwardIos sx={{ fill: "black" }} />}
               sx={{
                 backgroundColor: "#EAFF00",
                 color: "black",
@@ -336,7 +336,7 @@ export default function Home() {
           <Box display="flex" justifyContent="center">
             <Button
               variant="contained"
-              startIcon={<WhatsApp />}
+              startIcon={<WhatsApp sx={{ fill: "black" }} />}
               sx={{
                 backgroundColor: "#EBFF00",
                 color: "black",
