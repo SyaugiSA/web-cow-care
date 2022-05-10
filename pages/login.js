@@ -15,12 +15,6 @@ const fontFamily = "Poppins";
 const color1 = "#ffffff";
 const color2 = "#EBFF00";
 
-const styles = (theme) => {
-  form: {
-    color: color1;
-  }
-};
-
 export default function Login() {
   return (
     <Container>
@@ -206,17 +200,16 @@ export default function Login() {
           <Button
             type="button"
             href="/login/google"
-            startIcon={<GoogleIcon />}
+            startIcon={<GoogleIcon sx={{ fill: color2 }} />}
             sx={{
               border: 1,
               borderColor: color2,
               borderRadius: 1,
               fontFamily,
-              color: "black",
               width: "100%",
               my: 2,
               mb: 4,
-              color: color1,
+              color: color2,
             }}
           >
             Masuk dengan Google
