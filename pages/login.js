@@ -164,8 +164,8 @@ export default function Login() {
 
           <Box display="flex" justifyContent="space-between">
             <FormControlLabel
-              label="ingat saya"
-              control={<Checkbox sx={{ fontFamily }} />}
+              label={<Typography sx={{ fontFamily }}>ingat saya</Typography>}
+              control={<Checkbox />}
               sx={{ opacity: 0.7, fontFamily }}
             />
 
@@ -219,7 +219,7 @@ export default function Login() {
             <Typography component="span" variant="body1">
               {"Belum punya akun?"}
             </Typography>
-            <Link href="/register">
+            <Link href="/register/info-pribadi">
               <Typography
                 component="span"
                 variant="body1"
