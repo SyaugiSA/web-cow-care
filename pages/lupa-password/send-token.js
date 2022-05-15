@@ -41,7 +41,7 @@ export default function SendToken() {
           mx: "auto",
           my: 3,
           opacity: 0.7,
-          width: "50%",
+          width: { md: "50%", xs: "70%" },
         }}
       >
         Anda akan menerima email kode verifikasi beberapa saat lagi. Silahkan

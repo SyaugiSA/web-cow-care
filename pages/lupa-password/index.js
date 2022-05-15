@@ -46,7 +46,7 @@ export default function LupaPassword() {
         Isi email akun anda dibawah
       </Typography>
 
-      <Box sx={{ width: { md: 500, xs: 200 }, mx: "auto", py: 9 }}>
+      <Box sx={{ width: { md: 500, xs: 300 }, mx: "auto", py: 9 }}>
         <Typography
           component="div"
           sx={{ opacity: 0.7, fontFamily, width: "auto" }}
