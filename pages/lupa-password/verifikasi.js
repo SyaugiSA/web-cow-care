@@ -199,7 +199,7 @@ export default function Verifikasi() {
             r="7.41304"
             transform="rotate(-180 214.978 37.0652)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             cx="185.326"
@@ -207,7 +207,7 @@ export default function Verifikasi() {
             r="7.41304"
             transform="rotate(-180 185.326 37.0652)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             cx="214.978"
@@ -215,7 +215,7 @@ export default function Verifikasi() {
             r="7.41304"
             transform="rotate(-180 214.978 7.41305)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             cx="185.326"
@@ -223,7 +223,7 @@ export default function Verifikasi() {
             r="7.41304"
             transform="rotate(-180 185.326 7.41305)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             cx="214.978"
@@ -231,7 +231,7 @@ export default function Verifikasi() {
             r="7.41304"
             transform="rotate(-180 214.978 214.978)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             cx="185.326"
@@ -239,7 +239,7 @@ export default function Verifikasi() {
             r="7.41304"
             transform="rotate(-180 185.326 214.978)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             cx="214.978"
@@ -247,7 +247,7 @@ export default function Verifikasi() {
             r="7.41304"
             transform="rotate(-180 214.978 185.326)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             cx="185.326"
@@ -255,7 +255,7 @@ export default function Verifikasi() {
             r="7.41304"
             transform="rotate(-180 185.326 185.326)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             cx="214.978"
@@ -263,7 +263,7 @@ export default function Verifikasi() {
             r="7.41304"
             transform="rotate(-180 214.978 155.674)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             cx="185.326"
@@ -271,7 +271,7 @@ export default function Verifikasi() {
             r="7.41304"
             transform="rotate(-180 185.326 155.674)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             cx="214.978"
@@ -279,7 +279,7 @@ export default function Verifikasi() {
             r="7.41304"
             transform="rotate(-180 214.978 126.022)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             cx="185.326"
@@ -287,7 +287,7 @@ export default function Verifikasi() {
             r="7.41304"
             transform="rotate(-180 185.326 126.022)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             cx="214.978"
@@ -295,7 +295,7 @@ export default function Verifikasi() {
             r="7.41304"
             transform="rotate(-180 214.978 96.3696)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             cx="185.326"
@@ -303,7 +303,7 @@ export default function Verifikasi() {
             r="7.41304"
             transform="rotate(-180 185.326 96.3696)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             cx="214.978"
@@ -311,7 +311,7 @@ export default function Verifikasi() {
             r="7.41304"
             transform="rotate(-180 214.978 66.7174)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             cx="185.326"
@@ -319,7 +319,7 @@ export default function Verifikasi() {
             r="7.41304"
             transform="rotate(-180 185.326 66.7174)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             cx="155.674"
@@ -327,7 +327,7 @@ export default function Verifikasi() {
             r="7.41304"
             transform="rotate(-180 155.674 37.0652)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             cx="126.022"
@@ -335,7 +335,7 @@ export default function Verifikasi() {
             r="7.41304"
             transform="rotate(-180 126.022 37.0652)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             cx="96.3694"
@@ -343,7 +343,7 @@ export default function Verifikasi() {
             r="7.41304"
             transform="rotate(-180 96.3694 37.0652)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             cx="66.7173"
@@ -351,7 +351,7 @@ export default function Verifikasi() {
             r="7.41304"
             transform="rotate(-180 66.7173 37.0652)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             cx="37.0652"
@@ -359,7 +359,7 @@ export default function Verifikasi() {
             r="7.41304"
             transform="rotate(-180 37.0652 37.0652)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             cx="7.41288"
@@ -367,7 +367,7 @@ export default function Verifikasi() {
             r="7.41304"
             transform="rotate(-180 7.41288 37.0652)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             cx="155.674"
@@ -375,7 +375,7 @@ export default function Verifikasi() {
             r="7.41304"
             transform="rotate(-180 155.674 7.41307)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             cx="126.022"
@@ -383,7 +383,7 @@ export default function Verifikasi() {
             r="7.41304"
             transform="rotate(-180 126.022 7.41306)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             cx="96.3694"
@@ -391,7 +391,7 @@ export default function Verifikasi() {
             r="7.41304"
             transform="rotate(-180 96.3694 7.41306)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             cx="66.7173"
@@ -399,7 +399,7 @@ export default function Verifikasi() {
             r="7.41304"
             transform="rotate(-180 66.7173 7.41306)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             cx="37.0652"
@@ -407,7 +407,7 @@ export default function Verifikasi() {
             r="7.41304"
             transform="rotate(-180 37.0652 7.41306)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             cx="7.41288"
@@ -415,7 +415,7 @@ export default function Verifikasi() {
             r="7.41304"
             transform="rotate(-180 7.41288 7.41306)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
         </svg>
       </Box>
@@ -438,97 +438,97 @@ export default function Verifikasi() {
             r="7.41304"
             transform="matrix(-1 0 0 1 37.0651 185.326)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             r="7.41304"
             transform="matrix(-1 0 0 1 7.41288 185.326)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             r="7.41304"
             transform="matrix(-1 0 0 1 37.0651 214.978)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             r="7.41304"
             transform="matrix(-1 0 0 1 7.41288 214.978)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             r="7.41304"
             transform="matrix(-1 0 0 1 37.0651 7.41304)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             r="7.41304"
             transform="matrix(-1 0 0 1 7.41288 7.41304)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             r="7.41304"
             transform="matrix(-1 0 0 1 37.0651 37.0652)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             r="7.41304"
             transform="matrix(-1 0 0 1 7.41288 37.0652)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             r="7.41304"
             transform="matrix(-1 0 0 1 37.0651 66.7174)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             r="7.41304"
             transform="matrix(-1 0 0 1 7.41288 66.7174)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             r="7.41304"
             transform="matrix(-1 0 0 1 37.0651 96.3696)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             r="7.41304"
             transform="matrix(-1 0 0 1 7.41288 96.3696)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             r="7.41304"
             transform="matrix(-1 0 0 1 37.0651 126.022)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             r="7.41304"
             transform="matrix(-1 0 0 1 7.41288 126.022)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             r="7.41304"
             transform="matrix(-1 0 0 1 37.0651 155.674)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             r="7.41304"
             transform="matrix(-1 0 0 1 7.41288 155.674)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             cx="7.49996"
@@ -536,7 +536,7 @@ export default function Verifikasi() {
             r="7.41304"
             transform="rotate(-90 7.49996 392.674)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             cx="7.49996"
@@ -544,7 +544,7 @@ export default function Verifikasi() {
             r="7.41304"
             transform="rotate(-90 7.49996 363.022)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             cx="7.49996"
@@ -552,7 +552,7 @@ export default function Verifikasi() {
             r="7.41304"
             transform="rotate(-90 7.49996 333.37)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             cx="7.49996"
@@ -560,7 +560,7 @@ export default function Verifikasi() {
             r="7.41304"
             transform="rotate(-90 7.49996 303.717)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             cx="7.49996"
@@ -568,7 +568,7 @@ export default function Verifikasi() {
             r="7.41304"
             transform="rotate(-90 7.49996 274.065)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             cx="7.49996"
@@ -576,7 +576,7 @@ export default function Verifikasi() {
             r="7.41304"
             transform="rotate(-90 7.49996 244.413)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             cx="37.1521"
@@ -584,7 +584,7 @@ export default function Verifikasi() {
             r="7.41304"
             transform="rotate(-90 37.1521 392.674)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             cx="37.1521"
@@ -592,7 +592,7 @@ export default function Verifikasi() {
             r="7.41304"
             transform="rotate(-90 37.1521 363.022)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             cx="37.1521"
@@ -600,7 +600,7 @@ export default function Verifikasi() {
             r="7.41304"
             transform="rotate(-90 37.1521 333.37)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             cx="37.1521"
@@ -608,7 +608,7 @@ export default function Verifikasi() {
             r="7.41304"
             transform="rotate(-90 37.1521 303.717)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             cx="37.1521"
@@ -616,7 +616,7 @@ export default function Verifikasi() {
             r="7.41304"
             transform="rotate(-90 37.1521 274.065)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
           <circle
             cx="37.1521"
@@ -624,7 +624,7 @@ export default function Verifikasi() {
             r="7.41304"
             transform="rotate(-90 37.1521 244.413)"
             fill="#FAFF00"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
         </svg>
       </Box>
