@@ -16,6 +16,7 @@ import {
   TextField,
   Select,
   MenuItem,
+  Button,
 } from "@mui/material";
 import Image from "next/image";
 import { ArrowForwardIos, BorderColor, Delete } from "@mui/icons-material";
@@ -91,121 +92,141 @@ export default function PermanentDrawerLeft() {
             </Box>
 
             <Box>
-              <Table>
-                <TableRow sx={{ border: 3, borderColor: "white" }}>
-                  <TableCell>
-                    <Typography
-                      component="div"
-                      variant="body1"
-                      sx={{ color: "black", fontFamily, mb: 1 }}
-                    >
-                      Subject
-                    </Typography>
+              <form>
+                <Table>
+                  <TableRow sx={{ border: 3, borderColor: "white" }}>
+                    <TableCell>
+                      <Typography
+                        component="div"
+                        variant="body1"
+                        sx={{ color: "black", fontFamily, mb: 1 }}
+                      >
+                        Subject
+                      </Typography>
 
-                    <SubjectField disabled />
-                  </TableCell>
+                      <SubjectField disabled />
+                    </TableCell>
 
-                  <TableCell>
-                    <Typography
-                      component="div"
-                      variant="body1"
-                      sx={{ color: "black", fontFamily, mb: 1 }}
-                    >
-                      Kode Device
-                    </Typography>
+                    <TableCell>
+                      <Typography
+                        component="div"
+                        variant="body1"
+                        sx={{ color: "black", fontFamily, mb: 1 }}
+                      >
+                        Kode Device
+                      </Typography>
 
-                    <Field />
-                  </TableCell>
-                </TableRow>
+                      <Field />
+                    </TableCell>
+                  </TableRow>
 
-                <TableRow sx={{ border: 3, borderColor: "white" }}>
-                  <TableCell>
-                    <Typography
-                      component="div"
-                      variant="body1"
-                      sx={{ color: "black", fontFamily, mb: 1 }}
-                    >
-                      Jenis Kelamin
-                    </Typography>
+                  <TableRow sx={{ border: 3, borderColor: "white" }}>
+                    <TableCell>
+                      <Typography
+                        component="div"
+                        variant="body1"
+                        sx={{ color: "black", fontFamily, mb: 1 }}
+                      >
+                        Jenis Kelamin
+                      </Typography>
 
-                    <Select
-                      onChange={onJenisKelamin}
-                      value={jenisKelamin}
-                      sx={{
-                        fontFamily,
-                        width: 200,
-                        height: 40,
-                      }}
-                    >
-                      <MenuItem
-                        value="jantan"
+                      <Select
+                        onChange={onJenisKelamin}
+                        value={jenisKelamin}
                         sx={{
                           fontFamily,
-                          color: "black",
-                          height: 40,
                           width: 200,
+                          height: 40,
                         }}
                       >
-                        Jantan
-                      </MenuItem>
-                      <MenuItem
-                        value="betina"
-                        sx={{
-                          fontFamily,
-                          color: "black",
-                          height: 40,
-                          width: 200,
-                        }}
-                      >
-                        Betina
-                      </MenuItem>
-                    </Select>
-                  </TableCell>
+                        <MenuItem
+                          value="jantan"
+                          sx={{
+                            fontFamily,
+                            color: "black",
+                            height: 40,
+                            width: 200,
+                          }}
+                        >
+                          Jantan
+                        </MenuItem>
+                        <MenuItem
+                          value="betina"
+                          sx={{
+                            fontFamily,
+                            color: "black",
+                            height: 40,
+                            width: 200,
+                          }}
+                        >
+                          Betina
+                        </MenuItem>
+                      </Select>
+                    </TableCell>
 
-                  <TableCell>
-                    <Typography
-                      component="div"
-                      variant="body1"
-                      sx={{ color: "black", fontFamily, mb: 1 }}
-                    >
-                      Tipe
-                    </Typography>
+                    <TableCell>
+                      <Typography
+                        component="div"
+                        variant="body1"
+                        sx={{ color: "black", fontFamily, mb: 1 }}
+                      >
+                        Tipe
+                      </Typography>
 
-                    <Select
-                      onChange={onTipe}
-                      value={tipe}
-                      sx={{
-                        fontFamily,
-                        width: 200,
-                        height: 40,
-                      }}
-                    >
-                      <MenuItem
-                        value="pedaging"
+                      <Select
+                        onChange={onTipe}
+                        value={tipe}
                         sx={{
                           fontFamily,
-                          color: "black",
-                          height: 40,
                           width: 200,
+                          height: 40,
                         }}
                       >
-                        Pedaging
-                      </MenuItem>
-                      <MenuItem
-                        value="perah"
-                        sx={{
-                          fontFamily,
-                          color: "black",
-                          height: 40,
-                          width: 200,
-                        }}
-                      >
-                        Perah
-                      </MenuItem>
-                    </Select>
-                  </TableCell>
-                </TableRow>
-              </Table>
+                        <MenuItem
+                          value="pedaging"
+                          sx={{
+                            fontFamily,
+                            color: "black",
+                            height: 40,
+                            width: 200,
+                          }}
+                        >
+                          Pedaging
+                        </MenuItem>
+                        <MenuItem
+                          value="perah"
+                          sx={{
+                            fontFamily,
+                            color: "black",
+                            height: 40,
+                            width: 200,
+                          }}
+                        >
+                          Perah
+                        </MenuItem>
+                      </Select>
+                    </TableCell>
+                  </TableRow>
+
+                  <TableRow>
+                    <TableCell colSpan={2}>
+                      <Box sx={{ display: "flex", justifyContent: "center" }}>
+                        <Button
+                          variant="contained"
+                          sx={{
+                            background: "#040C1F",
+                            width: 159,
+                            height: 30,
+                            "&:hover": { background: "#5b5b5d" },
+                          }}
+                        >
+                          Update
+                        </Button>
+                      </Box>
+                    </TableCell>
+                  </TableRow>
+                </Table>
+              </form>
             </Box>
           </Box>
 
