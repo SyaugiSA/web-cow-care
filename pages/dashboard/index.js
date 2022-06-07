@@ -1,166 +1,435 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
-import Drawer from "@mui/material/Drawer";
-import CssBaseline from "@mui/material/CssBaseline";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import List from "@mui/material/List";
-import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
-import * as FaIcons from "react-icons/fa";
+import Sidebar from "../../components/sidebar";
 import {
-  DashboardIcon,
-  ProductIcon,
-  ProfileIcon,
-  SettingsIcon,
-} from "./../../components/icon";
+  Table,
+  TableCell,
+  TableRow,
+  Typography,
+  List,
+  ListItem,
+  Toolbar,
+  Box,
+  ListItemIcon,
+  Divider,
+  ListItemText,
+  styled,
+  TextField,
+  Select,
+  MenuItem,
+} from "@mui/material";
+import Image from "next/image";
+import { ArrowForwardIos, BorderColor, Delete } from "@mui/icons-material";
+import { useRouter } from "next/router";
+import Head from "next/head";
 
-const drawerWidth = 268;
+const fontFamily = "Poppins";
 
 export default function PermanentDrawerLeft() {
-  const data = [
-    {
-      title: "Dashboard",
-      icon: <DashboardIcon />,
+  const router = useRouter();
+  const [jenisKelamin, setJenisKelamin] = React.useState("");
+  const onJenisKelamin = (e) => setJenisKelamin(e.target.value);
+
+  const [tipe, setTipe] = React.useState("");
+  const onTipe = (e) => setTipe(e.target.value);
+
+  const SubjectField = styled(TextField)({
+    "& .MuiOutlinedInput-root": {
+      borderRadius: 8,
+      background: "rgba(0, 0, 0, 0.05)",
+      height: 40,
+      width: 200,
+      fontFamily,
     },
-    {
-      title: "Produk",
-      icon: <ProductIcon />,
+  });
+
+  const Field = styled(TextField)({
+    "& .MuiOutlinedInput-root": {
+      borderRadius: 8,
+      height: 40,
+      width: 200,
+      fontFamily,
     },
-    {
-      title: "Profil",
-      icon: <ProfileIcon />,
-    },
-    {
-      title: "Pengaturan",
-      icon: <SettingsIcon />,
-    },
-  ];
+  });
+
   return (
     <Box sx={{ display: "flex" }}>
-      <CssBaseline />
-      <AppBar
-        position="fixed"
-        sx={{
-          width: `calc(100% - ${drawerWidth}px)`,
-          ml: `${drawerWidth}px`,
-          backgroundColor: "#FFFFFF",
-          boxShadow: "none",
-          borderBottom: "1px solid #EEEEEE",
-        }}
-      >
-        <Toolbar>
-          <Typography variant="h6" noWrap component="div"></Typography>
-        </Toolbar>
-      </AppBar>
-      <Drawer
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          "& .MuiDrawer-paper": {
-            width: drawerWidth,
-            boxSizing: "border-box",
-            color: "#040C1F",
-            background: "#040C1F",
-          },
-        }}
-        variant="permanent"
-        anchor="left"
-      >
-        <Toolbar sx={{ display: "flex", justifyContent: "center" }}>
-          <img src="moocare.png" />
-        </Toolbar>
-        <Divider />
-        <Toolbar
-          sx={{ display: "flex", justifyContent: "center", paddingTop: "50px" }}
-        >
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <img
-              src="foto.png"
-              style={{
-                height: "65px",
-                width: "65px",
-                borderRadius: "65px",
-                border: "solid 1px #FFFFFF",
-                padding: "2px",
-              }}
-            />
-            <Typography
-              variant="h5"
-              noWrap
-              component="div"
-              sx={{ marginTop: "8px" }}
-            >
-              Anonim
-            </Typography>
-            <Typography
-              noWrap
-              component="span"
-              sx={{ color: "rgba(255, 255, 255, 0.5)" }}
-            >
-              Jember
-            </Typography>
-          </div>
-        </Toolbar>
-        <Divider />
+      <Head>
+        <title>MooCare-Dashboard</title>
+      </Head>
 
-        <List sx={{ paddingLeft: "50px", paddingTop: "50px" }}>
-          {data.map((item, i) => (
-            <ListItem key={i} disablePadding>
-              <ListItemButton sx={{ color: "#81858F" }}>
-                <ListItemIcon>{item.icon}</ListItemIcon>
-                <ListItemText>{item.title}</ListItemText>
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-      </Drawer>
-      <Box
-        component="main"
-        sx={{ flexGrow: 1, background: "#FFFFFF", p: 3, height: "100vh" }}
-      >
+      <Sidebar />
+      <Box component="main" sx={{ flexGrow: 1, background: "#FFFFFF", p: 5 }}>
         <Toolbar />
-        <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
-          dolor purus non enim praesent elementum facilisis leo vel. Risus at
-          ultrices mi tempus imperdiet. Semper risus in hendrerit gravida rutrum
-          quisque non tellus. Convallis convallis tellus id interdum velit
-          laoreet id donec ultrices. Odio morbi quis commodo odio aenean sed
-          adipiscing. Amet nisl suscipit adipiscing bibendum est ultricies
-          integer quis. Cursus euismod quis viverra nibh cras. Metus vulputate
-          eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo
-          quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat
-          vivamus at augue. At augue eget arcu dictum varius duis at consectetur
-          lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa sapien
-          faucibus et molestie ac.
-        </Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
-          ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
-          elementum integer enim neque volutpat ac tincidunt. Ornare suspendisse
-          sed nisi lacus sed viverra tellus. Purus sit amet volutpat consequat
-          mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis
-          risus sed vulputate odio. Morbi tincidunt ornare massa eget egestas
-          purus viverra accumsan in. In hendrerit gravida rutrum quisque non
-          tellus orci ac. Pellentesque nec nam aliquam sem et tortor. Habitant
-          morbi tristique senectus et. Adipiscing elit duis tristique
-          sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-          posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
+
+        <Box>
+          <Typography
+            component="span"
+            variant="h5"
+            sx={{ fontFamily, color: "black", mb: 2 }}
+          >
+            Dashboard
+          </Typography>
+
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            sx={{
+              mb: 8,
+              mt: 4,
+              border: "3px solid rgba(0, 49, 165, 0.2)",
+              p: 3,
+            }}
+            width={710}
+          >
+            <Box>
+              <Image
+                width={150}
+                height={150}
+                src="/sapi.png"
+                style={{ borderRadius: 100 }}
+              />
+            </Box>
+
+            <Box>
+              <Table>
+                <TableRow sx={{ border: 3, borderColor: "white" }}>
+                  <TableCell>
+                    <Typography
+                      component="div"
+                      variant="body1"
+                      sx={{ color: "black", fontFamily, mb: 1 }}
+                    >
+                      Subject
+                    </Typography>
+
+                    <SubjectField disabled />
+                  </TableCell>
+
+                  <TableCell>
+                    <Typography
+                      component="div"
+                      variant="body1"
+                      sx={{ color: "black", fontFamily, mb: 1 }}
+                    >
+                      Kode Device
+                    </Typography>
+
+                    <Field />
+                  </TableCell>
+                </TableRow>
+
+                <TableRow sx={{ border: 3, borderColor: "white" }}>
+                  <TableCell>
+                    <Typography
+                      component="div"
+                      variant="body1"
+                      sx={{ color: "black", fontFamily, mb: 1 }}
+                    >
+                      Jenis Kelamin
+                    </Typography>
+
+                    <Select
+                      onChange={onJenisKelamin}
+                      value={jenisKelamin}
+                      sx={{
+                        fontFamily,
+                        width: 200,
+                        height: 40,
+                      }}
+                    >
+                      <MenuItem
+                        value="jantan"
+                        sx={{
+                          fontFamily,
+                          color: "black",
+                          height: 40,
+                          width: 200,
+                        }}
+                      >
+                        Jantan
+                      </MenuItem>
+                      <MenuItem
+                        value="betina"
+                        sx={{
+                          fontFamily,
+                          color: "black",
+                          height: 40,
+                          width: 200,
+                        }}
+                      >
+                        Betina
+                      </MenuItem>
+                    </Select>
+                  </TableCell>
+
+                  <TableCell>
+                    <Typography
+                      component="div"
+                      variant="body1"
+                      sx={{ color: "black", fontFamily, mb: 1 }}
+                    >
+                      Tipe
+                    </Typography>
+
+                    <Select
+                      onChange={onTipe}
+                      value={tipe}
+                      sx={{
+                        fontFamily,
+                        width: 200,
+                        height: 40,
+                      }}
+                    >
+                      <MenuItem
+                        value="pedaging"
+                        sx={{
+                          fontFamily,
+                          color: "black",
+                          height: 40,
+                          width: 200,
+                        }}
+                      >
+                        Pedaging
+                      </MenuItem>
+                      <MenuItem
+                        value="perah"
+                        sx={{
+                          fontFamily,
+                          color: "black",
+                          height: 40,
+                          width: 200,
+                        }}
+                      >
+                        Perah
+                      </MenuItem>
+                    </Select>
+                  </TableCell>
+                </TableRow>
+              </Table>
+            </Box>
+          </Box>
+
+          <Box
+            width={710}
+            sx={{ border: "3px solid rgba(0, 49, 165, 0.2)", p: 2 }}
+          >
+            <Typography
+              variant="h6"
+              component="div"
+              sx={{ fontFamily, color: "black", mb: 2 }}
+            >
+              Daftar Device
+            </Typography>
+
+            <Box width={670} display="flex" justifyContent="space-between">
+              <Box width={500}>
+                <List>
+                  <ListItem
+                    sx={{
+                      background: "rgba(0, 0, 0, 0.05)",
+                      borderRadius: 3,
+                      mb: 3,
+                    }}
+                  >
+                    <ListItemIcon>
+                      <Image src="/miband.png" height={30} width={30} />
+                    </ListItemIcon>
+
+                    <ListItemText sx={{ height: "100%" }}>
+                      <Divider
+                        orientation="vertical"
+                        flexItem
+                        sx={{
+                          backgroundColor: "rgba(0, 0, 0, 0.1)",
+                          py: 2,
+                          width: 0,
+                        }}
+                      />
+                    </ListItemText>
+
+                    <ListItemText>
+                      <Typography
+                        sx={{ color: "black", fontFamily, mr: 20, ml: 2 }}
+                      >
+                        MiBand/1
+                      </Typography>
+                    </ListItemText>
+
+                    <ListItemText sx={{ height: "100%" }}>
+                      <Divider
+                        orientation="vertical"
+                        flexItem
+                        sx={{
+                          backgroundColor: "rgba(0, 0, 0, 0.1)",
+                          py: 2,
+                          width: 0,
+                        }}
+                      />
+                    </ListItemText>
+
+                    <ListItemText onClick={() => router.push("/id")}>
+                      <Typography
+                        sx={{
+                          color: "black",
+                          fontFamily,
+                          "&:hover": { cursor: "pointer" },
+                        }}
+                      >
+                        Cek Status
+                      </Typography>
+                    </ListItemText>
+
+                    <ListItemIcon onClick={() => router.push("/id")}>
+                      <ArrowForwardIos
+                        sx={{ fill: "black", "&:hover": { cursor: "pointer" } }}
+                      />
+                    </ListItemIcon>
+                  </ListItem>
+
+                  <ListItem
+                    sx={{ background: "rgba(0, 0, 0, 0.05)", borderRadius: 3 }}
+                  >
+                    <ListItemIcon>
+                      <Image src="/miband.png" height={30} width={30} />
+                    </ListItemIcon>
+
+                    <ListItemText sx={{ height: "100%" }}>
+                      <Divider
+                        orientation="vertical"
+                        flexItem
+                        sx={{
+                          backgroundColor: "rgba(0, 0, 0, 0.1)",
+                          py: 2,
+                          width: 0,
+                        }}
+                      />
+                    </ListItemText>
+
+                    <ListItemText>
+                      <Typography
+                        sx={{ color: "black", fontFamily, mr: 20, ml: 2 }}
+                      >
+                        MiBand/1
+                      </Typography>
+                    </ListItemText>
+
+                    <ListItemText sx={{ height: "100%" }}>
+                      <Divider
+                        orientation="vertical"
+                        flexItem
+                        sx={{
+                          backgroundColor: "rgba(0, 0, 0, 0.1)",
+                          py: 2,
+                          width: 0,
+                        }}
+                      />
+                    </ListItemText>
+
+                    <ListItemText onClick={() => router.push("/id")}>
+                      <Typography
+                        sx={{
+                          color: "black",
+                          fontFamily,
+                          "&:hover": { cursor: "pointer" },
+                        }}
+                      >
+                        Cek Status
+                      </Typography>
+                    </ListItemText>
+
+                    <ListItemIcon onClick={() => router.push("/id")}>
+                      <ArrowForwardIos
+                        sx={{ fill: "black", "&:hover": { cursor: "pointer" } }}
+                      />
+                    </ListItemIcon>
+                  </ListItem>
+                </List>
+              </Box>
+
+              <Box>
+                <List>
+                  <ListItem
+                    sx={{
+                      background: "rgba(0, 0, 0, 0.05)",
+                      borderRadius: 3,
+                      mb: 3,
+                    }}
+                  >
+                    <ListItemIcon>
+                      <BorderColor
+                        sx={{
+                          fill: "black",
+                          "&:hover": { cursor: "pointer" },
+                          mx: "auto",
+                        }}
+                        onClick={() => router.push("/id")}
+                      />
+                    </ListItemIcon>
+
+                    <ListItemText sx={{ height: "100%" }}>
+                      <Divider
+                        orientation="vertical"
+                        flexItem
+                        sx={{
+                          backgroundColor: "rgba(0, 0, 0, 0.1)",
+                          py: 2,
+                          width: 0,
+                        }}
+                      />
+                    </ListItemText>
+
+                    <ListItemIcon>
+                      <Delete
+                        sx={{
+                          fill: "black",
+                          "&:hover": { cursor: "pointer" },
+                          mx: "auto",
+                        }}
+                      />
+                    </ListItemIcon>
+                  </ListItem>
+
+                  <ListItem
+                    sx={{ background: "rgba(0, 0, 0, 0.05)", borderRadius: 3 }}
+                  >
+                    <ListItemIcon>
+                      <BorderColor
+                        sx={{
+                          fill: "black",
+                          "&:hover": { cursor: "pointer" },
+                          mx: "auto",
+                        }}
+                        onClick={() => router.push("/id")}
+                      />
+                    </ListItemIcon>
+
+                    <ListItemText sx={{ height: "100%" }}>
+                      <Divider
+                        orientation="vertical"
+                        flexItem
+                        sx={{
+                          backgroundColor: "rgba(0, 0, 0, 0.1)",
+                          py: 2,
+                          width: 0,
+                        }}
+                      />
+                    </ListItemText>
+
+                    <ListItemIcon>
+                      <Delete
+                        sx={{
+                          fill: "black",
+                          "&:hover": { cursor: "pointer" },
+                          mx: "auto",
+                        }}
+                      />
+                    </ListItemIcon>
+                  </ListItem>
+                </List>
+              </Box>
+            </Box>
+          </Box>
+        </Box>
       </Box>
     </Box>
   );

@@ -24,6 +24,7 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import NumberFormat from "react-number-format";
 import PropTypes from "prop-types";
+import Head from "next/head";
 
 const fontFamily = "Poppins";
 const color1 = "#ffffff";
@@ -104,6 +105,10 @@ export default function Domisili() {
 
   return (
     <Box sx={{ background: "white" }}>
+      <Head>
+        <title>MooCare-Register</title>
+      </Head>
+
       <Box sx={{ display: { md: "block", xs: "none" } }}>
         <Image src="/register.png" alt="Sapi" width={650} height={975} />
       </Box>
@@ -240,7 +245,7 @@ export default function Domisili() {
                         onChange={handleProvinsi}
                         required
                         value={provinsi}
-                        sx={{ width: "100%" }}
+                        sx={{ width: "100%", fontFamily }}
                       >
                         {lsitProvinsi.map((val) => (
                           <MenuItem
@@ -268,7 +273,7 @@ export default function Domisili() {
                         required
                         onChange={handleKabupaten}
                         value={kabupaten}
-                        sx={{ width: "100%" }}
+                        sx={{ width: "100%", fontFamily }}
                       >
                         {listKabupaten.map((val) => (
                           <MenuItem
@@ -294,10 +299,9 @@ export default function Domisili() {
                       </Typography>
                       <TextField
                         required
-                        type="password"
                         sx={{
                           width: "100%",
-                          input: { background: "rgba(0,0,0,0.05)" },
+                          input: { background: "rgba(0,0,0,0.05)", fontFamily },
                         }}
                       />
                     </TableCell>

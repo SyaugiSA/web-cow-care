@@ -1,17 +1,23 @@
-import { Box, Button, Container, TextField, Typography } from "@mui/material";
-import Head from "next/head";
+import {
+  Box,
+  Button,
+  Checkbox,
+  Container,
+  Divider,
+  FormControlLabel,
+  TextField,
+  Typography,
+} from "@mui/material";
+import GoogleIcon from "@mui/icons-material/Google";
+import Link from "next/link";
 
 const fontFamily = "Poppins";
 const color1 = "#ffffff";
 const color2 = "#EBFF00";
 
-export default function LupaPassword() {
+export default function ResetPassword() {
   return (
     <Container>
-      <Head>
-        <title>MooCare-Lupa Password</title>
-      </Head>
-
       <Box sx={{ mb: 2 }}>
         <Typography
           variant="h3"
@@ -28,64 +34,83 @@ export default function LupaPassword() {
           Care
         </Typography>
       </Box>
-      <Typography
-        variant="h5"
-        component="div"
-        sx={{ fontFamily: "Poppins", textAlign: "center", fontSize: 40 }}
+
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        sx={{ width: "max-content", mx: "auto", mb: 10 }}
       >
-        <b>Lupa password?</b>
-      </Typography>
-      <Typography
-        variant="body2"
-        component="div"
-        sx={{
-          textAlign: "center",
-          fontFamily,
-          mx: "auto",
-          mb: 3,
-          opacity: 0.7,
-        }}
-      >
-        Isi email akun anda dibawah
-      </Typography>
-      <Box sx={{ width: { md: 500, xs: 300 }, mx: "auto", py: 9 }}>
         <Typography
-          component="div"
-          sx={{ opacity: 0.7, fontFamily, width: "auto" }}
+          variant="h3"
+          component="span"
+          sx={{ fontFamily: "Poppins" }}
         >
-          Email
+          <b>Password Baru</b>
         </Typography>
-
-        <TextField
-          required
-          type="email"
-          autoFocus={true}
-          sx={{
-            borderColor: color2,
-            border: 1,
-            width: "100%",
-            fontFamily,
-            borderRadius: 1,
-            input: { color: color1 },
-            mb: 2,
-          }}
-        />
-
-        <Button
-          type="submit"
-          sx={{
-            backgroundColor: color2,
-            borderRadius: 1,
-            fontFamily,
-            color: "black",
-            width: "100%",
-            my: 2,
-            "&:hover": { background: color2 },
-          }}
-        >
-          Masuk
-        </Button>
       </Box>
+
+      <Box display="flex" justifyContent="center">
+        <Box>
+          <Typography
+            component="div"
+            sx={{ opacity: 0.7, fontFamily, width: "auto" }}
+          >
+            Password Baru
+          </Typography>
+          <TextField
+            required
+            type="password"
+            autoFocus={true}
+            sx={{
+              borderColor: color2,
+              border: 1,
+              width: { md: 500, xs: 300 },
+              fontFamily,
+              borderRadius: 1,
+              input: { color: color1 },
+            }}
+          />
+          <br />
+          <br />
+          <Typography
+            component="div"
+            sx={{ opacity: 0.7, fontFamily, width: "auto" }}
+          >
+            Verifikasi Password Baru
+          </Typography>
+          <TextField
+            type="password"
+            required
+            autoFocus={true}
+            sx={{
+              borderColor: color2,
+              border: 1,
+              width: { md: 500, xs: 300 },
+              fontFamily,
+              borderRadius: 1,
+              input: { color: color1 },
+            }}
+          />
+          <br />
+
+          <br />
+          <Button
+            type="submit"
+            sx={{
+              backgroundColor: color2,
+              borderRadius: 1,
+              fontFamily,
+              color: "black",
+              width: "100%",
+              mt: 5,
+              "&:hover": { background: color2 },
+            }}
+          >
+            Masuk
+          </Button>
+        </Box>
+      </Box>
+
       <Box display="flex" justifyContent="center">
         <Typography
           component="span"
@@ -101,6 +126,7 @@ export default function LupaPassword() {
           Copyright@2022 Politeknik Negeri Jember
         </Typography>
       </Box>
+
       <Box
         sx={{
           display: { md: "block", xs: "none" },
@@ -342,6 +368,7 @@ export default function LupaPassword() {
           />
         </svg>
       </Box>
+
       <Box
         sx={{
           display: { md: "block", xs: "none" },

@@ -10,3 +10,11 @@
 html {
   background-color: #040c1f;
 }
+
+.MuiAutocomplete-option {
+  color: black;
+}
+
+.MuiSelect-icon {
+  fill: black;
+}

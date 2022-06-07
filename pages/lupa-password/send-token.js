@@ -1,4 +1,5 @@
 import { Box, Button, Container, TextField, Typography } from "@mui/material";
+import Head from "next/head";
 
 const fontFamily = "Poppins";
 const color1 = "#ffffff";
@@ -7,6 +8,10 @@ const color2 = "#EBFF00";
 export default function SendToken() {
   return (
     <Container>
+      <Head>
+        <title>MooCare-Lupa Password</title>
+      </Head>
+
       <Box sx={{ mb: 2 }}>
         <Typography
           variant="h3"

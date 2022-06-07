@@ -15,6 +15,7 @@ import { autoPlay } from "react-swipeable-views-utils";
 import Footer from "../components/footer";
 import Navbar from "../components/navbar";
 import Toolbar from "@mui/material/Toolbar";
+import Head from "next/head";
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
@@ -54,6 +55,10 @@ export default function Home() {
 
   return (
     <>
+      <Head>
+        <title>MooCare</title>
+      </Head>
+
       <Navbar />
       <Container maxWidth="lg" sx={{ mt: { md: 18, xs: 9 } }}>
         <Box
@@ -119,6 +124,7 @@ export default function Home() {
                 width: "max-content",
                 fontFamily: "Poppins",
                 mb: 3,
+                zIndex: 1,
               }}
             >
               Selengkapnya
@@ -139,7 +145,7 @@ export default function Home() {
           width: "100%",
           height: "100%",
           position: "absolute",
-          top: 670,
+          top: { md: 670, xs: 950 },
         }}
       >
         <Image src="/wave1.png" layout="fill" objectFit="contain" />
