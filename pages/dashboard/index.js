@@ -22,16 +22,62 @@ import Image from "next/image";
 import { ArrowForwardIos, BorderColor, Delete } from "@mui/icons-material";
 import { useRouter } from "next/router";
 import Head from "next/head";
+import axios from "axios";
+import { server } from "./../../lib/server";
 
 const fontFamily = "Poppins";
 
 export default function PermanentDrawerLeft() {
   const router = useRouter();
+  const [data, setData] = React.useState({});
   const [jenisKelamin, setJenisKelamin] = React.useState("");
   const onJenisKelamin = (e) => setJenisKelamin(e.target.value);
 
   const [tipe, setTipe] = React.useState("");
   const onTipe = (e) => setTipe(e.target.value);
+
+  const [kabupaten, setKabupaten] = React.useState("");
+
+  const [click, setClick] = React.useState(1);
+  const handleClick = (event) => {
+    axios
+      .post(`${server}/click`, {
+        x: event.pageX,
+        y: event.pageY,
+        width: innerWidth,
+        height: innerHeight,
+        click,
+        location: window.location.pathname,
+      })
+      .then((res) => console.log(res.data))
+      .catch((e) => console.log(e.response?.data));
+    return setClick(click + 1);
+  };
+
+  React.useEffect(() => {
+    window.addEventListener("click", handleClick);
+
+    const email = localStorage.getItem("mailLogin");
+    const token = localStorage.getItem("token");
+    axios
+      .get(`${server}/user/${email}`, {
+        headers: { authorization: `Bearer ${token}` },
+      })
+      .then((res) => {
+        setData(res.data.user);
+
+        axios
+          .get(
+            `http://dev.farizdotid.com/api/daerahindonesia/kota?id_provinsi=${res.data.user.provinsi}`
+          )
+          .then((resp) => {
+            var kot = resp.data.kota_kabupaten.filter(
+              (val) => val.id === res.data.user.kota
+            );
+            setKabupaten(kot[0].nama);
+          });
+      });
+  }, []);
 
   const SubjectField = styled(TextField)({
     "& .MuiOutlinedInput-root": {
@@ -58,7 +104,11 @@ export default function PermanentDrawerLeft() {
         <title>MooCare-Dashboard</title>
       </Head>
 
-      <Sidebar />
+      <Sidebar
+        nama={`${data.nama_depan} ${data.nama_belakang}`}
+        kota={kabupaten}
+      />
+
       <Box component="main" sx={{ flexGrow: 1, background: "#FFFFFF", p: 5 }}>
         <Toolbar />
 

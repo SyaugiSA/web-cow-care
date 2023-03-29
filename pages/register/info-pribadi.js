@@ -14,13 +14,18 @@ import {
   TableCell,
   TextField,
   FormControlLabel,
-  Checkbox,
-  withStyles,
   Button,
+  Alert,
+  Snackbar,
 } from "@mui/material";
+import axios from "axios";
+import { useFormik } from "formik";
 import Head from "next/head";
 import Image from "next/image";
-import { useState } from "react";
+import { useRouter } from "next/router";
+import { useState, useEffect } from "react";
+import SlideTransition from "../../components/SlideTransition";
+import { server } from "../../lib/server";
 
 const fontFamily = "Poppins";
 const color1 = "#ffffff";
@@ -29,6 +34,16 @@ const color2 = "#EBFF00";
 export default function InfoPribadi() {
   const [checked, setChecked] = useState(false);
   const handleChecked = () => setChecked(!checked);
+
+  const [namaDepan, setNamaDepan] = useState(false);
+  const [namaBelakang, setNamaBelakang] = useState(false);
+  const [email, setEmail] = useState(false);
+  const [check, setCheck] = useState(true);
+  const [password, setPassword] = useState(false);
+  const [rePassword, setRePassword] = useState(false);
+  const [snack, setSnack] = useState(false);
+  const [message, setMessage] = useState("");
+  const router = useRouter();
 
   const CheckedIcon = () => {
     const check = <CheckBox sx={{ fill: "black" }} />;
@@ -67,8 +82,64 @@ export default function InfoPribadi() {
       </Button>
     );
 
-    return checked ? aktif : mati;
+    return namaDepan ||
+      namaBelakang ||
+      email ||
+      password ||
+      rePassword ||
+      !checked ||
+      !check
+      ? mati
+      : aktif;
   };
+
+  const handleClose = () => setSnack(false);
+
+  const formik = useFormik({
+    initialValues: {
+      nama_depan: "",
+      nama_belakang: "",
+      email: "",
+      password: "",
+      rePassword: "",
+    },
+    validate: (val) => {
+      const err = {};
+      !val.nama_depan ? setNamaDepan(true) : setNamaDepan(false);
+      !val.nama_belakang ? setNamaBelakang(true) : setNamaBelakang(false);
+      !val.email ? setEmail(true) : setEmail(false);
+      !val.password ? setPassword(true) : setPassword(false);
+      !val.rePassword ? setRePassword(true) : setRePassword(false);
+      val.rePassword !== val.password
+        ? setRePassword(true)
+        : setRePassword(false);
+      return err;
+    },
+    onSubmit: (val) => {
+      localStorage.setItem("register", JSON.stringify(val));
+      router.push("domisili");
+    },
+  });
+
+  const [click, setClick] = React.useState(1);
+  const handleClick = (event) => {
+    axios
+      .post(`${server}/click`, {
+        x: event.pageX,
+        y: event.pageY,
+        width: innerWidth,
+        height: innerHeight,
+        click,
+        location: window.location.pathname,
+      })
+      .then((res) => console.log(res.data))
+      .catch((e) => console.log(e.response?.data));
+    return setClick(click + 1);
+  };
+
+  useEffect(() => {
+    window.addEventListener("click", handleClick);
+  }, []);
 
   return (
     <>
@@ -99,6 +170,7 @@ export default function InfoPribadi() {
               >
                 Moo
               </Typography>
+
               <Typography
                 variant="h3"
                 component="span"
@@ -132,6 +204,7 @@ export default function InfoPribadi() {
                 >
                   Langkah 1/2
                 </Typography>
+
                 <Typography
                   variant="body1"
                   component="span"
@@ -174,149 +247,211 @@ export default function InfoPribadi() {
                   Untuk regulasi kami, harap isi data dibawah
                 </Typography>
 
-                <Table>
-                  <TableRow sx={{ border: 3, borderColor: "none" }}>
-                    <TableCell>
-                      <Typography
-                        variant="body1"
-                        component="div"
-                        sx={{ color: "black", fontFamily }}
-                      >
-                        Nama Depan*
+                {message != "" ? (
+                  <Snackbar
+                    open={snack}
+                    autoHideDuration={6000}
+                    onClose={handleClose}
+                    TransitionComponent={SlideTransition}
+                  >
+                    <Alert
+                      severity={!check ? "error" : "success"}
+                      variant="filled"
+                    >
+                      <Typography sx={{ fontFamily, fontWeight: 600 }}>
+                        {message}
                       </Typography>
-                      <TextField
-                        autoFocus={true}
-                        required
-                        sx={{
-                          width: "100%",
-                          input: { background: "rgba(0,0,0,0.05)" },
-                        }}
-                      />
-                    </TableCell>
+                    </Alert>
+                  </Snackbar>
+                ) : (
+                  ""
+                )}
 
-                    <TableCell>
-                      <Typography
-                        variant="body1"
-                        component="div"
-                        sx={{ color: "black", fontFamily }}
-                      >
-                        Nama Belakang*
-                      </Typography>
-                      <TextField
-                        required
-                        sx={{
-                          width: "100%",
-                          input: { background: "rgba(0,0,0,0.05)" },
-                        }}
-                      />
-                    </TableCell>
-                  </TableRow>
-
-                  <TableRow sx={{ border: 3, borderColor: "none" }}>
-                    <TableCell colSpan={2}>
-                      <Typography
-                        variant="body1"
-                        component="div"
-                        sx={{ color: "black", fontFamily }}
-                      >
-                        Email*
-                      </Typography>
-                      <TextField
-                        required
-                        type="email"
-                        sx={{
-                          width: "100%",
-                          input: { background: "rgba(0,0,0,0.05)" },
-                        }}
-                      />
-                    </TableCell>
-                  </TableRow>
-
-                  <TableRow sx={{ border: 3, borderColor: "none" }}>
-                    <TableCell>
-                      <Typography
-                        variant="body1"
-                        component="div"
-                        sx={{ color: "black", fontFamily }}
-                      >
-                        Password*
-                      </Typography>
-                      <TextField
-                        required
-                        type="password"
-                        sx={{
-                          width: "100%",
-                          input: { background: "rgba(0,0,0,0.05)" },
-                        }}
-                      />
-                    </TableCell>
-
-                    <TableCell>
-                      <Typography
-                        variant="body1"
-                        component="div"
-                        sx={{ color: "black", fontFamily }}
-                      >
-                        Re-type Password*
-                      </Typography>
-                      <TextField
-                        required
-                        type="password"
-                        sx={{
-                          width: "100%",
-                          input: { background: "rgba(0,0,0,0.05)" },
-                        }}
-                      />
-                    </TableCell>
-                  </TableRow>
-
-                  <TableRow sx={{ border: 3, borderColor: "none" }}>
-                    <TableCell colSpan={2}>
-                      <FormControlLabel
-                        xs={{ background: "black" }}
-                        label={
-                          <Typography sx={{ color: "black", fontFamily }}>
-                            Saya setuju dengan syarat dan ketentuan
-                          </Typography>
-                        }
-                        control={<CheckedIcon />}
-                        onClick={handleChecked}
-                        sx={{
-                          opacity: 0.7,
-                          fontFamily,
-                        }}
-                      />
-                    </TableCell>
-                  </TableRow>
-
-                  <TableRow sx={{ border: 3, borderColor: "none" }}>
-                    <TableCell colSpan={2}>
-                      <ButtonType />
-                    </TableCell>
-                  </TableRow>
-
-                  <TableRow sx={{ border: 3, borderColor: "none" }}>
-                    <TableCell colSpan={2}>
-                      <Divider flexItem sx={{ opacity: 0.7 }}>
-                        <Typography sx={{ fontFamily, color: "black" }}>
-                          Atau
+                <form onSubmit={formik.handleSubmit}>
+                  <Table>
+                    <TableRow sx={{ border: 3, borderColor: "none" }}>
+                      <TableCell>
+                        <Typography
+                          variant="body1"
+                          component="div"
+                          sx={{ color: "black", fontFamily }}
+                        >
+                          Nama Depan*
                         </Typography>
-                      </Divider>
-                    </TableCell>
-                  </TableRow>
 
-                  <TableRow sx={{ border: 3, borderColor: "none" }}>
-                    <TableCell colSpan={2}>
-                      <Button
-                        startIcon={<Google sx={{ fill: "black" }} />}
-                        sx={{ width: "100%", fontFamily, color: "black" }}
-                        variant="outlined"
-                      >
-                        Daftar dengan Google
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-                </Table>
+                        <TextField
+                          onChange={formik.handleChange}
+                          value={formik.values.nama_depan}
+                          autoFocus
+                          name="nama_depan"
+                          required
+                          error={namaDepan}
+                          sx={{
+                            width: "100%",
+                            input: { background: "rgba(0,0,0,0.05)" },
+                          }}
+                        />
+                      </TableCell>
+
+                      <TableCell>
+                        <Typography
+                          variant="body1"
+                          component="div"
+                          sx={{ color: "black", fontFamily }}
+                        >
+                          Nama Belakang*
+                        </Typography>
+
+                        <TextField
+                          onChange={formik.handleChange}
+                          value={formik.values.nama_belakang}
+                          name="nama_belakang"
+                          required
+                          error={namaBelakang}
+                          sx={{
+                            width: "100%",
+                            input: { background: "rgba(0,0,0,0.05)" },
+                          }}
+                        />
+                      </TableCell>
+                    </TableRow>
+
+                    <TableRow sx={{ border: 3, borderColor: "none" }}>
+                      <TableCell colSpan={2}>
+                        <Typography
+                          variant="body1"
+                          component="div"
+                          sx={{ color: "black", fontFamily }}
+                        >
+                          Email*
+                        </Typography>
+
+                        <TextField
+                          required
+                          error={email}
+                          onChange={formik.handleChange}
+                          value={formik.values.email}
+                          type="email"
+                          name="email"
+                          onBlur={() =>
+                            axios
+                              .post(`${server}/auth/email-check`, {
+                                email: formik.values.email,
+                              })
+                              .then((res) => {
+                                setMessage(res.data.message);
+                                setCheck(true);
+                                setSnack(true);
+                              })
+                              .catch((err) => {
+                                var msg = err.response?.data.message;
+                                setMessage(msg);
+                                setCheck(false);
+                                setSnack(true);
+                              })
+                          }
+                          sx={{
+                            width: "100%",
+                            input: { background: "rgba(0,0,0,0.05)" },
+                          }}
+                        />
+                      </TableCell>
+                    </TableRow>
+
+                    <TableRow sx={{ border: 3, borderColor: "none" }}>
+                      <TableCell>
+                        <Typography
+                          variant="body1"
+                          component="div"
+                          sx={{ color: "black", fontFamily }}
+                        >
+                          Password*
+                        </Typography>
+                        <TextField
+                          required
+                          type="password"
+                          error={password}
+                          sx={{
+                            width: "100%",
+                            input: { background: "rgba(0,0,0,0.05)" },
+                          }}
+                          onChange={formik.handleChange}
+                          value={formik.values.password}
+                          name="password"
+                        />
+                      </TableCell>
+
+                      <TableCell>
+                        <Typography
+                          variant="body1"
+                          component="div"
+                          sx={{ color: "black", fontFamily }}
+                        >
+                          Re-type Password*
+                        </Typography>
+                        <TextField
+                          required
+                          type="password"
+                          error={rePassword}
+                          name="rePassword"
+                          sx={{
+                            width: "100%",
+                            input: { background: "rgba(0,0,0,0.05)" },
+                          }}
+                          onChange={formik.handleChange}
+                          value={formik.values.rePassword}
+                        />
+                      </TableCell>
+                    </TableRow>
+
+                    <TableRow sx={{ border: 3, borderColor: "none" }}>
+                      <TableCell colSpan={2}>
+                        <FormControlLabel
+                          xs={{ background: "black" }}
+                          label={
+                            <Typography sx={{ color: "black", fontFamily }}>
+                              Saya setuju dengan syarat dan ketentuan
+                            </Typography>
+                          }
+                          control={<CheckedIcon />}
+                          onClick={handleChecked}
+                          sx={{
+                            opacity: 0.7,
+                            fontFamily,
+                          }}
+                        />
+                      </TableCell>
+                    </TableRow>
+
+                    <TableRow sx={{ border: 3, borderColor: "none" }}>
+                      <TableCell colSpan={2}>
+                        <ButtonType />
+                      </TableCell>
+                    </TableRow>
+
+                    <TableRow sx={{ border: 3, borderColor: "none" }}>
+                      <TableCell colSpan={2}>
+                        <Divider flexItem sx={{ opacity: 0.7 }}>
+                          <Typography sx={{ fontFamily, color: "black" }}>
+                            Atau
+                          </Typography>
+                        </Divider>
+                      </TableCell>
+                    </TableRow>
+
+                    <TableRow sx={{ border: 3, borderColor: "none" }}>
+                      <TableCell colSpan={2}>
+                        <Button
+                          startIcon={<Google sx={{ fill: "black" }} />}
+                          sx={{ width: "100%", fontFamily, color: "black" }}
+                          variant="outlined"
+                        >
+                          Daftar dengan Google
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  </Table>
+                </form>
               </Box>
             </Box>
           </Box>

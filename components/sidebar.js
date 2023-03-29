@@ -16,8 +16,11 @@ import { Box } from "@mui/material";
 import { Drawer } from "@mui/material";
 import { AppBar } from "@mui/material";
 import { CssBaseline } from "@mui/material";
+import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { DashboardIcon, ProductIcon, ProfileIcon, SettingsIcon } from "./icon";
 
 const data = [
@@ -85,7 +88,9 @@ const SearchBar = styled((props) => (
   },
 }));
 
-export default function Sidebar() {
+export default function Sidebar({ nama, kota }) {
+  const router = useRouter();
+
   return (
     <Box>
       <CssBaseline />
@@ -126,7 +131,22 @@ export default function Sidebar() {
         anchor="left"
       >
         <Toolbar sx={{ display: "flex", justifyContent: "center" }}>
-          <img src="moocare.png" />
+          <Box>
+            <Typography
+              variant="h3"
+              component="span"
+              sx={{ fontFamily: "Poppins", color: "#ffffff", fontWeight: 800 }}
+            >
+              Moo
+            </Typography>
+            <Typography
+              variant="h3"
+              component="span"
+              sx={{ fontFamily: "Poppins", color: "#EBFF00", fontWeight: 800 }}
+            >
+              Care
+            </Typography>
+          </Box>
         </Toolbar>
         <Divider />
         <Toolbar
@@ -156,14 +176,14 @@ export default function Sidebar() {
               component="div"
               sx={{ marginTop: "8px" }}
             >
-              Anonim
+              {nama}
             </Typography>
             <Typography
               noWrap
               component="span"
               sx={{ color: "rgba(255, 255, 255, 0.5)" }}
             >
-              Jember
+              {kota}
             </Typography>
           </Box>
         </Toolbar>
@@ -186,7 +206,14 @@ export default function Sidebar() {
 
         <Divider />
         <List sx={{ paddingLeft: "50px", paddingTop: "70px" }}>
-          <ListItem disablePadding>
+          <ListItem
+            disablePadding
+            onClick={() => {
+              localStorage.removeItem("token");
+              localStorage.removeItem("emailLogin");
+              router.push("/login");
+            }}
+          >
             <ListItemButton sx={{ color: "#81858F" }}>
               <ListItemIcon>
                 <svg

@@ -1,20 +1,32 @@
-import {
-  Box,
-  Button,
-  Container,
-  Table,
-  TableCell,
-  TableRow,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Container, TextField, Typography } from "@mui/material";
 import Head from "next/head";
+import { useState, useEffect } from "react";
 
 const fontFamily = "Poppins";
 const color1 = "#ffffff";
 const color2 = "#EBFF00";
 
 export default function Verifikasi() {
+  const [click, setClick] = useState(1);
+  const handleClick = (event) => {
+    axios
+      .post(`${server}/click`, {
+        x: event.pageX,
+        y: event.pageY,
+        width: innerWidth,
+        height: innerHeight,
+        click,
+        location: window.location.pathname,
+      })
+      .then((res) => console.log(res.data))
+      .catch((e) => console.log(e.response?.data));
+    return setClick(click + 1);
+  };
+
+  useEffect(() => {
+    window.addEventListener("click", handleClick);
+  }, []);
+
   return (
     <Container>
       <Head>

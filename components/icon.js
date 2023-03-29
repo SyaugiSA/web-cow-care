@@ -1,10 +1,10 @@
-export const DashboardIcon = () => {
+export const DashboardIcon = ({ aktif }) => {
   return (
     <svg
       width="18"
       height="18"
       viewBox="0 0 18 18"
-      fill="none"
+      fill={aktif == 1 ? "black" : "none"}
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
@@ -15,13 +15,13 @@ export const DashboardIcon = () => {
   );
 };
 
-export const ProductIcon = () => {
+export const ProductIcon = ({ aktif }) => {
   return (
     <svg
       width="18"
       height="18"
       viewBox="0 0 18 18"
-      fill="none"
+      fill={aktif == 2 ? "black" : "none"}
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
@@ -43,13 +43,13 @@ export const ProductIcon = () => {
   );
 };
 
-export const ProfileIcon = () => {
+export const ProfileIcon = ({ aktif }) => {
   return (
     <svg
       width="18"
       height="18"
       viewBox="0 0 18 18"
-      fill="none"
+      fill={aktif == 3 ? "black" : "none"}
       xmlns="http://www.w3.org/2000/svg"
     >
       <circle cx="9" cy="5" r="4" fill="white" fillOpacity="0.5" />
@@ -64,13 +64,13 @@ export const ProfileIcon = () => {
   );
 };
 
-export const SettingsIcon = () => {
+export const SettingsIcon = ({ aktif }) => {
   return (
     <svg
       width="18"
       height="18"
       viewBox="0 0 18 18"
-      fill="none"
+      fill={aktif == 3 ? "black" : "none"}
       xmlns="http://www.w3.org/2000/svg"
     >
       <path

@@ -1,4 +1,4 @@
-import { Toolbar } from "@mui/material";
+import { NativeSelect, Toolbar } from "@mui/material";
 import { Typography } from "@mui/material";
 import { Table } from "@mui/material";
 import { TableCell } from "@mui/material";
@@ -12,9 +12,8 @@ import NumberFormat from "react-number-format";
 import Sidebar from "../../components/sidebar";
 import PropTypes from "prop-types";
 import axios from "axios";
-import { Select } from "@mui/material";
-import { MenuItem } from "@mui/material";
 import { Button } from "@mui/material";
+import { server } from "../../lib/server";
 
 const fontFamily = "Poppins";
 const NumberFormatCustom = React.forwardRef(function NumberFormatCustom(
@@ -49,10 +48,11 @@ NumberFormatCustom.propTypes = {
 export default function Profil() {
   const [lsitProvinsi, setListProvinsi] = React.useState([]);
   const [listKabupaten, setListKabupaten] = React.useState([]);
-  const [checked, setChecked] = React.useState(false);
-  const [phone, setPhone] = React.useState({
-    numberformat: "851",
-  });
+  const [Kabupaten, setKabupaten] = React.useState("");
+
+  const [data, setData] = React.useState({});
+  const [rePassword, setRepassword] = React.useState("");
+  const [phone, setPhone] = React.useState({});
 
   const handlePhone = (event) => {
     setPhone({
@@ -61,22 +61,59 @@ export default function Profil() {
     });
   };
 
-  const handleChecked = () => setChecked(!checked);
-
-  const [provinsi, setProvinsi] = React.useState();
-  const [kabupaten, setKabupaten] = React.useState();
-
   const handleProvinsi = (event) => {
-    setProvinsi(event.target.value);
+    setData({ provinsi: event.target.value });
     axios
       .get(
-        `http://dev.farizdotid.com/api/daerahindonesia/kota?id_provinsi=${event.target.value}`
+        `http://dev.farizdotid.com/api/daerahindonesia/kota?id_provinsi=${data.provinsi}`
       )
       .then((res) => setListKabupaten(res.data.kota_kabupaten));
   };
-  const handleKabupaten = (event) => setKabupaten(event.target.value);
+
+  const [click, setClick] = React.useState(1);
+  const handleClick = (event) => {
+    axios
+      .post(`${server}/click`, {
+        x: event.pageX,
+        y: event.pageY,
+        width: innerWidth,
+        height: innerHeight,
+        click,
+        location: window.location.pathname,
+      })
+      .then((res) => console.log(res.data))
+      .catch((e) => console.log(e.response?.data));
+    return setClick(click + 1);
+  };
 
   React.useEffect(() => {
+    window.addEventListener("click", handleClick);
+
+    const email = localStorage.getItem("emailLogin");
+    const token = localStorage.getItem("token");
+
+    axios
+      .get(`${server}/user/${email}`, {
+        headers: { authorization: `Bearer ${token}` },
+      })
+      .then((res) => {
+        setData(res.data.user);
+        setPhone({ ...phone, nohp: res.data.user.nohp });
+
+        axios
+          .get(
+            `http://dev.farizdotid.com/api/daerahindonesia/kota?id_provinsi=${res.data.user.provinsi}`
+          )
+          .then((resp) => {
+            setListKabupaten(resp.data.kota_kabupaten);
+
+            var kot = resp.data.kota_kabupaten.filter(
+              (val) => val.id === res.data.user.kota
+            );
+            setKabupaten(kot[0].nama);
+          });
+      });
+
     axios
       .get("http://dev.farizdotid.com/api/daerahindonesia/provinsi")
       .then((res) => setListProvinsi(res.data.provinsi));
@@ -88,7 +125,11 @@ export default function Profil() {
         <title>MooCare-Profil</title>
       </Head>
 
-      <Sidebar />
+      <Sidebar
+        nama={`${data.nama_depan} ${data.nama_belakang}`}
+        kota={Kabupaten}
+      />
+
       <Box component="main" sx={{ flexGrow: 1, background: "#FFFFFF", p: 5 }}>
         <Toolbar />
 
@@ -134,6 +175,11 @@ export default function Profil() {
                     </Typography>
 
                     <TextField
+                      name="nama_depan"
+                      value={data.nama_depan}
+                      onChange={(event) =>
+                        setData({ nama_depan: event.targe.value })
+                      }
                       sx={{
                         input: {
                           background: "rgba(0, 0, 0, 0.05)",
@@ -155,6 +201,11 @@ export default function Profil() {
                     </Typography>
 
                     <TextField
+                      name="nama_belakang"
+                      value={data.nama_belakang}
+                      onChange={(event) =>
+                        setData({ nama_belakang: event.targe.value })
+                      }
                       sx={{
                         input: {
                           background: "rgba(0, 0, 0, 0.05)",
@@ -178,6 +229,11 @@ export default function Profil() {
                     </Typography>
 
                     <TextField
+                      name="email"
+                      value={data.email}
+                      onChange={(event) =>
+                        setData({ email: event.targe.value })
+                      }
                       sx={{
                         input: {
                           background: "rgba(0, 0, 0, 0.05)",
@@ -201,6 +257,11 @@ export default function Profil() {
                     </Typography>
 
                     <TextField
+                      name="password"
+                      value={data.password}
+                      onChange={(event) =>
+                        setData({ password: event.targe.value })
+                      }
                       type="password"
                       sx={{
                         input: {
@@ -223,6 +284,9 @@ export default function Profil() {
                     </Typography>
 
                     <TextField
+                      name="rePassword"
+                      value={rePassword}
+                      onChange={(event) => setRepassword(event.targe.value)}
                       type="password"
                       sx={{
                         input: {
@@ -247,6 +311,11 @@ export default function Profil() {
                     </Typography>
 
                     <TextField
+                      name="alamat"
+                      value={data.alamat}
+                      onChange={(event) =>
+                        setData({ alamat: event.targe.value })
+                      }
                       sx={{
                         input: {
                           background: "rgba(0, 0, 0, 0.05)",
@@ -274,8 +343,9 @@ export default function Profil() {
                     </Typography>
 
                     <TextField
-                      value={phone.nunumberformat}
+                      value={phone.nohp}
                       onChange={handlePhone}
+                      name="nohp"
                       InputProps={{
                         inputComponent: NumberFormatCustom,
                       }}
@@ -294,22 +364,23 @@ export default function Profil() {
                       Provinsi
                     </Typography>
 
-                    <Select
+                    <NativeSelect
                       onChange={handleProvinsi}
                       required
-                      value={provinsi}
+                      defaultValue={data.provinsi}
+                      value={data.provinsi}
                       sx={{ width: "100%", fontFamily }}
                     >
                       {lsitProvinsi.map((val) => (
-                        <MenuItem
+                        <option
                           key={val.id}
                           value={val.id}
                           sx={{ fontFamily, color: "black" }}
                         >
                           {val.nama}
-                        </MenuItem>
+                        </option>
                       ))}
-                    </Select>
+                    </NativeSelect>
                   </TableCell>
                 </TableRow>
 
@@ -323,22 +394,25 @@ export default function Profil() {
                       Kabupaten/Kota
                     </Typography>
 
-                    <Select
+                    <NativeSelect
                       required
-                      onChange={handleKabupaten}
-                      value={kabupaten}
+                      onChange={(event) =>
+                        setData({ kota: event.target.value })
+                      }
+                      defaultValue={data.kota}
+                      value={data.kota}
                       sx={{ width: "100%", fontFamily }}
                     >
                       {listKabupaten.map((val) => (
-                        <MenuItem
+                        <option
                           key={val.id}
                           value={val.id}
                           sx={{ fontFamily, color: "black" }}
                         >
                           {val.nama}
-                        </MenuItem>
+                        </option>
                       ))}
-                    </Select>
+                    </NativeSelect>
                   </TableCell>
                 </TableRow>
               </Table>
@@ -347,6 +421,7 @@ export default function Profil() {
 
           <Box display="flex" justifyContent="center" sx={{ mt: 5 }}>
             <Button
+              type="submit"
               variant="contained"
               sx={{
                 background: "#040C1F",

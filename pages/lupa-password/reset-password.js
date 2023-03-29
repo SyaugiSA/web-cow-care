@@ -1,21 +1,31 @@
-import {
-  Box,
-  Button,
-  Checkbox,
-  Container,
-  Divider,
-  FormControlLabel,
-  TextField,
-  Typography,
-} from "@mui/material";
-import GoogleIcon from "@mui/icons-material/Google";
-import Link from "next/link";
+import { Box, Button, Container, TextField, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
 
 const fontFamily = "Poppins";
 const color1 = "#ffffff";
 const color2 = "#EBFF00";
 
 export default function ResetPassword() {
+  const [click, setClick] = useState(1);
+  const handleClick = (event) => {
+    axios
+      .post(`${server}/click`, {
+        x: event.pageX,
+        y: event.pageY,
+        width: innerWidth,
+        height: innerHeight,
+        click,
+        location: window.location.pathname,
+      })
+      .then((res) => console.log(res.data))
+      .catch((e) => console.log(e.response?.data));
+    return setClick(click + 1);
+  };
+
+  useEffect(() => {
+    window.addEventListener("click", handleClick);
+  }, []);
+
   return (
     <Container>
       <Box sx={{ mb: 2 }}>

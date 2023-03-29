@@ -17,6 +17,9 @@ import {
   Select,
   MenuItem,
   InputLabel,
+  Snackbar,
+  Alert,
+  NativeSelect,
 } from "@mui/material";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
@@ -25,6 +28,9 @@ import axios from "axios";
 import NumberFormat from "react-number-format";
 import PropTypes from "prop-types";
 import Head from "next/head";
+import { useFormik } from "formik";
+import { server } from "./../../lib/server";
+import SlideTransition from "../../components/SlideTransition";
 
 const fontFamily = "Poppins";
 const color1 = "#ffffff";
@@ -62,11 +68,12 @@ NumberFormatCustom.propTypes = {
 export default function Domisili() {
   const [lsitProvinsi, setListProvinsi] = useState([]);
   const [listKabupaten, setListKabupaten] = useState([]);
+  const [register, setRegister] = useState({});
+  const [reg, setReg] = useState();
   const router = useRouter();
-  const [checked, setChecked] = useState(false);
-  const [phone, setPhone] = React.useState({
-    numberformat: "851",
-  });
+  const [phone, setPhone] = useState({});
+  const [message, setMessage] = useState("");
+  const [snack, setSnack] = useState(false);
 
   const handlePhone = (event) => {
     setPhone({
@@ -75,10 +82,8 @@ export default function Domisili() {
     });
   };
 
-  const handleChecked = () => setChecked(!checked);
-
-  const [provinsi, setProvinsi] = useState();
-  const [kabupaten, setKabupaten] = useState();
+  const [provinsi, setProvinsi] = useState("");
+  const [kabupaten, setKabupaten] = useState("");
 
   const handleProvinsi = (event) => {
     setProvinsi(event.target.value);
@@ -90,17 +95,58 @@ export default function Domisili() {
   };
   const handleKabupaten = (event) => setKabupaten(event.target.value);
 
-  const CheckedIcon = () => {
-    const check = <CheckBox sx={{ fill: "black" }} />;
-    const unCheck = <CheckBoxOutlineBlank sx={{ fill: "black" }} />;
+  const handleClose = () => setSnack(false);
 
-    return checked ? check : unCheck;
+  const formik = useFormik({
+    initialValues: {
+      alamat: "",
+    },
+    onSubmit: (val) => {
+      setReg({
+        nohp: Number(`62${phone.nohp}`),
+        provinsi: provinsi,
+        kota: kabupaten,
+        alamat: val.alamat,
+        ...register,
+      });
+      axios
+        .post(`${server}/auth/register`, reg)
+        .then((res) => {
+          setMessage(res.data.message);
+          setSnack(true);
+          localStorage.removeItem("register");
+          return router.push("/login");
+        })
+        .catch((err) => {
+          setMessage(err.response?.data?.message);
+          setSnack(true);
+        });
+    },
+  });
+
+  const [click, setClick] = React.useState(1);
+  const handleClick = (event) => {
+    axios
+      .post(`${server}/click`, {
+        x: event.pageX,
+        y: event.pageY,
+        width: innerWidth,
+        height: innerHeight,
+        click,
+        location: window.location.pathname,
+      })
+      .then((res) => console.log(res.data))
+      .catch((e) => console.log(e.response?.data));
+    return setClick(click + 1);
   };
 
   useEffect(() => {
+    window.addEventListener("click", handleClick);
+
     axios
       .get("http://dev.farizdotid.com/api/daerahindonesia/provinsi")
       .then((res) => setListProvinsi(res.data.provinsi));
+    setRegister(JSON.parse(localStorage.getItem("register")));
   }, []);
 
   return (
@@ -112,6 +158,27 @@ export default function Domisili() {
       <Box sx={{ display: { md: "block", xs: "none" } }}>
         <Image src="/register.png" alt="Sapi" width={650} height={975} />
       </Box>
+
+      {message != "" ? (
+        <Snackbar
+          open={snack}
+          autoHideDuration={6000}
+          onClose={handleClose}
+          TransitionComponent={SlideTransition}
+        >
+          <Alert
+            severity={message == "Registrasi Berhasil" ? "success" : "error"}
+            variant="filled"
+            sx={{ mb: 2 }}
+          >
+            <Typography sx={{ fontFamily, fontWeight: 600 }}>
+              {message}
+            </Typography>
+          </Alert>
+        </Snackbar>
+      ) : (
+        ""
+      )}
 
       <Container>
         <Box
@@ -210,7 +277,7 @@ export default function Domisili() {
                 Untuk kebutuhan dan regulasi kami, harap isi data dibawah
               </Typography>
 
-              <form>
+              <form onSubmit={formik.handleSubmit}>
                 <Table>
                   <TableRow sx={{ border: 3, borderColor: "none" }}>
                     <TableCell colSpan={2}>
@@ -224,6 +291,7 @@ export default function Domisili() {
                       <TextField
                         value={phone.nunumberformat}
                         onChange={handlePhone}
+                        name="nohp"
                         InputProps={{
                           inputComponent: NumberFormatCustom,
                         }}
@@ -241,22 +309,22 @@ export default function Domisili() {
                       >
                         Provinsi*
                       </Typography>
-                      <Select
+                      <NativeSelect
                         onChange={handleProvinsi}
                         required
                         value={provinsi}
                         sx={{ width: "100%", fontFamily }}
                       >
                         {lsitProvinsi.map((val) => (
-                          <MenuItem
+                          <option
                             key={val.id}
                             value={val.id}
                             sx={{ fontFamily, color: "black" }}
                           >
                             {val.nama}
-                          </MenuItem>
+                          </option>
                         ))}
-                      </Select>
+                      </NativeSelect>
                     </TableCell>
                   </TableRow>
 
@@ -269,22 +337,22 @@ export default function Domisili() {
                       >
                         Kabupaten/Kota*
                       </Typography>
-                      <Select
+                      <NativeSelect
                         required
                         onChange={handleKabupaten}
                         value={kabupaten}
                         sx={{ width: "100%", fontFamily }}
                       >
                         {listKabupaten.map((val) => (
-                          <MenuItem
+                          <option
                             key={val.id}
                             value={val.id}
                             sx={{ fontFamily, color: "black" }}
                           >
                             {val.nama}
-                          </MenuItem>
+                          </option>
                         ))}
-                      </Select>
+                      </NativeSelect>
                     </TableCell>
                   </TableRow>
 
@@ -303,6 +371,9 @@ export default function Domisili() {
                           width: "100%",
                           input: { background: "rgba(0,0,0,0.05)", fontFamily },
                         }}
+                        name="alamat"
+                        value={formik.values.alamat}
+                        onChange={formik.handleChange}
                       />
                     </TableCell>
                   </TableRow>

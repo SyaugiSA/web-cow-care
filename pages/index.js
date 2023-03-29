@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ArrowBackIos, ArrowForwardIos, WhatsApp } from "@mui/icons-material";
 import {
   Box,
@@ -14,8 +14,9 @@ import SwipeableViews from "react-swipeable-views";
 import { autoPlay } from "react-swipeable-views-utils";
 import Footer from "../components/footer";
 import Navbar from "../components/navbar";
-import Toolbar from "@mui/material/Toolbar";
 import Head from "next/head";
+import axios from "axios";
+import { server } from "./../lib/server";
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
@@ -42,6 +43,8 @@ export default function Home() {
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
   const maxSteps = pengembang.length;
+  const [click, setClick] = React.useState(1);
+  const [time, setTime] = React.useState(1);
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -52,6 +55,40 @@ export default function Home() {
   const handleStepChange = (step) => {
     setActiveStep(step);
   };
+
+  const handleClick = (event) => {
+    axios
+      .post(`${server}/click`, {
+        x: event.pageX,
+        y: event.pageY,
+        width: innerWidth,
+        height: innerHeight,
+        click,
+        location: window.location.pathname,
+        time,
+      })
+      .then((res) => console.log(res.data))
+      .catch((e) => console.log(e.response?.data));
+    // console.log({
+    //   x: event.pageX,
+    //   y: event.pageY,
+    //   width: innerWidth,
+    //   height: innerHeight,
+    //   click,
+    //   location: window.location.pathname,
+    // time,
+    // });
+    setClick(click++);
+    setTime(0);
+  };
+
+  useEffect(() => {
+    let interval = setInterval(() => {
+      setTime((time) => time + 1);
+    }, 100);
+    () => clearInterval(interval);
+    window.addEventListener("click", handleClick);
+  }, []);
 
   return (
     <>

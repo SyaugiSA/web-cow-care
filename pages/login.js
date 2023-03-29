@@ -1,22 +1,91 @@
 import {
+  Alert,
   Box,
   Button,
   Checkbox,
   Container,
   Divider,
   FormControlLabel,
+  Snackbar,
   TextField,
   Typography,
 } from "@mui/material";
 import GoogleIcon from "@mui/icons-material/Google";
 import Link from "next/link";
 import Head from "next/head";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useRouter } from "next/router";
+import { server } from "./../lib/server";
+import SlideTransition from "../components/SlideTransition";
 
 const fontFamily = "Poppins";
 const color1 = "#ffffff";
 const color2 = "#EBFF00";
 
 export default function Login() {
+  const router = useRouter();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [checked, setChecked] = useState(false);
+  const [message, setMessage] = useState("");
+  const [snack, setSnack] = useState(false);
+
+  const handleClose = () => setSnack(false);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    axios
+      .post(`${server}/auth/login`, { email, password })
+      .then((res) => {
+        if (checked) {
+          localStorage.setItem("email", email);
+        } else {
+          localStorage.removeItem("email");
+        }
+
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("emailLogin", res.data.email);
+
+        setMessage(res.data.message);
+        setSnack(true);
+
+        router.push("/dashboard");
+      })
+      .catch((err) => {
+        var msg = err.response?.data.message;
+        setMessage(msg);
+        setSnack(true);
+      });
+  };
+
+  const [click, setClick] = useState(1);
+  const handleClick = (event) => {
+    axios
+      .post(`${server}/click`, {
+        x: event.pageX,
+        y: event.pageY,
+        width: innerWidth,
+        height: innerHeight,
+        click,
+        location: window.location.pathname,
+      })
+      .then((res) => console.log(res.data))
+      .catch((e) => console.log(e.response?.data));
+    return setClick(click + 1);
+  };
+
+  useEffect(() => {
+    window.addEventListener("click", handleClick);
+
+    const mail = localStorage.getItem("email");
+    if (mail) {
+      setEmail(mail);
+      setChecked(!checked);
+    }
+  }, []);
+
   return (
     <>
       <Head>
@@ -126,78 +195,111 @@ export default function Login() {
 
         <Box display="flex" justifyContent="center">
           <Box>
-            <Typography
-              component="div"
-              sx={{ opacity: 0.7, fontFamily, width: "auto" }}
-            >
-              Email
-            </Typography>
-            <TextField
-              required
-              type="email"
-              autoFocus={true}
-              sx={{
-                borderColor: color2,
-                border: 1,
-                width: { md: 500, xs: 300 },
-                fontFamily,
-                borderRadius: 1,
-                input: { color: color1 },
-              }}
-            />
-            <br />
-            <br />
-            <Typography
-              component="div"
-              sx={{ opacity: 0.7, fontFamily, width: "auto" }}
-            >
-              Password
-            </Typography>
-            <TextField
-              type="password"
-              required
-              autoFocus={true}
-              sx={{
-                borderColor: color2,
-                border: 1,
-                width: { md: 500, xs: 300 },
-                fontFamily,
-                borderRadius: 1,
-                input: { color: color1 },
-              }}
-            />
-            <br />
-
-            <Box display="flex" justifyContent="space-between">
-              <FormControlLabel
-                label={<Typography sx={{ fontFamily }}>ingat saya</Typography>}
-                control={<Checkbox />}
-                sx={{ opacity: 0.7, fontFamily }}
-              />
-
-              <Link href="/lupa-password">
-                <Typography
-                  sx={{ fontFamily, opacity: 0.7, mt: 1, cursor: "pointer" }}
+            {message != "" ? (
+              <Snackbar
+                open={snack}
+                autoHideDuration={6000}
+                onClose={handleClose}
+                TransitionComponent={SlideTransition}
+              >
+                <Alert
+                  severity={message == "Login Berhasil" ? "success" : "error"}
+                  variant="filled"
+                  sx={{ mb: 2 }}
                 >
-                  Lupa password
-                </Typography>
-              </Link>
-            </Box>
-            <br />
-            <Button
-              type="submit"
-              sx={{
-                backgroundColor: color2,
-                borderRadius: 1,
-                fontFamily,
-                color: "black",
-                width: "100%",
-                mb: 2,
-                "&:hover": { background: color2 },
-              }}
-            >
-              Masuk
-            </Button>
+                  <Typography sx={{ fontFamily, fontWeight: 600 }}>
+                    {message}
+                  </Typography>
+                </Alert>
+              </Snackbar>
+            ) : (
+              ""
+            )}
+
+            <form onSubmit={handleSubmit}>
+              <Typography
+                component="div"
+                sx={{ opacity: 0.7, fontFamily, width: "auto" }}
+              >
+                Email
+              </Typography>
+              <TextField
+                required
+                type="email"
+                autoFocus={true}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                sx={{
+                  borderColor: color2,
+                  border: 1,
+                  width: { md: 500, xs: 300 },
+                  fontFamily,
+                  borderRadius: 1,
+                  input: { color: color1 },
+                }}
+              />
+              <br />
+              <br />
+              <Typography
+                component="div"
+                sx={{ opacity: 0.7, fontFamily, width: "auto" }}
+              >
+                Password
+              </Typography>
+              <TextField
+                type="password"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                sx={{
+                  borderColor: color2,
+                  border: 1,
+                  width: { md: 500, xs: 300 },
+                  fontFamily,
+                  borderRadius: 1,
+                  input: { color: color1 },
+                }}
+              />
+              <br />
+
+              <Box display="flex" justifyContent="space-between">
+                <FormControlLabel
+                  label={
+                    <Typography sx={{ fontFamily }}>ingat saya</Typography>
+                  }
+                  control={
+                    <Checkbox
+                      checked={checked}
+                      onClick={() => setChecked(!checked)}
+                    />
+                  }
+                  sx={{ opacity: 0.7, fontFamily }}
+                />
+
+                <Link href="/lupa-password">
+                  <Typography
+                    sx={{ fontFamily, opacity: 0.7, mt: 1, cursor: "pointer" }}
+                  >
+                    Lupa password
+                  </Typography>
+                </Link>
+              </Box>
+              <br />
+              <Button
+                type="submit"
+                sx={{
+                  backgroundColor: color2,
+                  borderRadius: 1,
+                  fontFamily,
+                  color: "black",
+                  width: "100%",
+                  mb: 2,
+                  "&:hover": { background: "#E2FFA0" },
+                }}
+              >
+                Masuk
+              </Button>
+            </form>
 
             <Divider flexItem sx={{ color: color1, opacity: 0.7 }}>
               Atau
