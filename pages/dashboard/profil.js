@@ -14,6 +14,7 @@ import PropTypes from "prop-types";
 import axios from "axios";
 import { Button } from "@mui/material";
 import { server } from "../../lib/server";
+import { ClickAction } from "../../lib/click";
 
 const fontFamily = "Poppins";
 const NumberFormatCustom = React.forwardRef(function NumberFormatCustom(
@@ -70,20 +71,11 @@ export default function Profil() {
       .then((res) => setListKabupaten(res.data.kota_kabupaten));
   };
 
-  const [click, setClick] = React.useState(1);
-  const handleClick = (event) => {
-    axios
-      .post(`${server}/click`, {
-        x: event.pageX,
-        y: event.pageY,
-        width: innerWidth,
-        height: innerHeight,
-        click,
-        location: window.location.pathname,
-      })
-      .then((res) => console.log(res.data))
-      .catch((e) => console.log(e.response?.data));
-    return setClick(click + 1);
+  const [time, setTime] = React.useState(1);
+
+  const handleClick = (button) => {
+    ClickAction(button, time, window.localStorage.getItem("username"));
+    setTime(0);
   };
 
   React.useEffect(() => {
@@ -117,6 +109,11 @@ export default function Profil() {
     axios
       .get("http://dev.farizdotid.com/api/daerahindonesia/provinsi")
       .then((res) => setListProvinsi(res.data.provinsi));
+
+    let interval = setInterval(() => {
+      setTime((time) => time + 1);
+    }, 100);
+    () => clearInterval(interval);
   }, []);
 
   return (
@@ -126,6 +123,7 @@ export default function Profil() {
       </Head>
 
       <Sidebar
+        click={handleClick}
         nama={`${data.nama_depan} ${data.nama_belakang}`}
         kota={Kabupaten}
       />
@@ -421,6 +419,7 @@ export default function Profil() {
 
           <Box display="flex" justifyContent="center" sx={{ mt: 5 }}>
             <Button
+              onClick={() => handleClick("tombol update")}
               type="submit"
               variant="contained"
               sx={{

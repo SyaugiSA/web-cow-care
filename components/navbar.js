@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import { Menu as MenuIcon } from "@mui/icons-material";
 
-export default function Navbar() {
+export default function Navbar({ action }) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -91,42 +91,6 @@ export default function Navbar() {
                     textAlign="center"
                     sx={{ color: "black", fontFamily: "Poppins" }}
                   >
-                    Home
-                  </Typography>
-                </MenuItem>
-
-                <MenuItem onClick={handleCloseNavMenu}>
-                  <Typography
-                    textAlign="center"
-                    sx={{ color: "black", fontFamily: "Poppins" }}
-                  >
-                    Solusi
-                  </Typography>
-                </MenuItem>
-
-                <MenuItem onClick={handleCloseNavMenu}>
-                  <Typography
-                    textAlign="center"
-                    sx={{ color: "black", fontFamily: "Poppins" }}
-                  >
-                    Tentang Kami
-                  </Typography>
-                </MenuItem>
-
-                <MenuItem onClick={handleCloseNavMenu}>
-                  <Typography
-                    textAlign="center"
-                    sx={{ color: "black", fontFamily: "Poppins" }}
-                  >
-                    Harga
-                  </Typography>
-                  <Divider />
-                </MenuItem>
-                <MenuItem onClick={handleCloseNavMenu}>
-                  <Typography
-                    textAlign="center"
-                    sx={{ color: "black", fontFamily: "Poppins" }}
-                  >
                     Masuk
                   </Typography>
                 </MenuItem>
@@ -154,72 +118,7 @@ export default function Navbar() {
 
             <Box sx={{ display: { xs: "none", md: "flex" } }}>
               <Button
-                href="/"
-                sx={{
-                  my: 2,
-                  color: "#FFFFFF",
-                  display: "block",
-                  opacity: 0.7,
-                  fontSize: 20,
-                  mx: 2,
-                  fontFamily: "Poppins",
-                }}
-              >
-                Home
-              </Button>
-
-              <Button
-                href="/solusi"
-                sx={{
-                  my: 2,
-                  color: "#FFFFFF",
-                  display: "block",
-                  opacity: 0.7,
-                  fontSize: 20,
-                  mx: 2,
-                  fontFamily: "Poppins",
-                }}
-              >
-                Solusi
-              </Button>
-
-              <Button
-                href="/tentang-kami"
-                sx={{
-                  my: 2,
-                  color: "#FFFFFF",
-                  display: "block",
-                  opacity: 0.7,
-                  fontSize: 20,
-                  mx: 2,
-                  fontFamily: "Poppins",
-                }}
-              >
-                Tentang Kami
-              </Button>
-
-              <Button
-                href="/harga"
-                sx={{
-                  my: 2,
-                  color: "#EBFF00",
-                  display: "block",
-                  fontSize: 20,
-                  mx: 2,
-                  fontFamily: "Poppins",
-                }}
-              >
-                Harga
-              </Button>
-
-              <Divider
-                orientation="vertical"
-                flexItem
-                variant="middle"
-                sx={{ backgroundColor: "#EBFF00", mx: 2 }}
-              />
-
-              <Button
+                onClick={() => action("halaman masuk")}
                 href="/login"
                 sx={{
                   my: 2,

@@ -26,6 +26,7 @@ import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import SlideTransition from "../../components/SlideTransition";
 import { server } from "../../lib/server";
+import { ClickAction } from "../../lib/click";
 
 const fontFamily = "Poppins";
 const color1 = "#ffffff";
@@ -44,6 +45,12 @@ export default function InfoPribadi() {
   const [snack, setSnack] = useState(false);
   const [message, setMessage] = useState("");
   const router = useRouter();
+  const [time, setTime] = useState(1);
+
+  const handleClick = (button) => {
+    ClickAction(button, time, window.localStorage.getItem("username"));
+    setTime(0);
+  };
 
   const CheckedIcon = () => {
     const check = <CheckBox sx={{ fill: "black" }} />;
@@ -55,6 +62,7 @@ export default function InfoPribadi() {
   const ButtonType = () => {
     const aktif = (
       <Button
+        onClick={() => handleClick("tombol masuk")}
         type="submit"
         sx={{
           background: "#040C1F",
@@ -70,6 +78,7 @@ export default function InfoPribadi() {
 
     const mati = (
       <Button
+        onClick={() => handleClick("tombol masuk")}
         disabled
         sx={{
           background: "rgba(0, 0, 0, 0.15)",
@@ -121,24 +130,11 @@ export default function InfoPribadi() {
     },
   });
 
-  const [click, setClick] = React.useState(1);
-  const handleClick = (event) => {
-    axios
-      .post(`${server}/click`, {
-        x: event.pageX,
-        y: event.pageY,
-        width: innerWidth,
-        height: innerHeight,
-        click,
-        location: window.location.pathname,
-      })
-      .then((res) => console.log(res.data))
-      .catch((e) => console.log(e.response?.data));
-    return setClick(click + 1);
-  };
-
   useEffect(() => {
-    window.addEventListener("click", handleClick);
+    let interval = setInterval(() => {
+      setTime((time) => time + 1);
+    }, 100);
+    () => clearInterval(interval);
   }, []);
 
   return (
@@ -414,7 +410,10 @@ export default function InfoPribadi() {
                             </Typography>
                           }
                           control={<CheckedIcon />}
-                          onClick={handleChecked}
+                          onClick={() => {
+                            handleChecked;
+                            handleClick("checkbox");
+                          }}
                           sx={{
                             opacity: 0.7,
                             fontFamily,
@@ -442,6 +441,7 @@ export default function InfoPribadi() {
                     <TableRow sx={{ border: 3, borderColor: "none" }}>
                       <TableCell colSpan={2}>
                         <Button
+                          disabled
                           startIcon={<Google sx={{ fill: "black" }} />}
                           sx={{ width: "100%", fontFamily, color: "black" }}
                           variant="outlined"

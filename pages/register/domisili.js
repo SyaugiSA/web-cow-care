@@ -74,6 +74,7 @@ export default function Domisili() {
   const [phone, setPhone] = useState({});
   const [message, setMessage] = useState("");
   const [snack, setSnack] = useState(false);
+  const [time, setTime] = useState(1);
 
   const handlePhone = (event) => {
     setPhone({
@@ -124,29 +125,21 @@ export default function Domisili() {
     },
   });
 
-  const [click, setClick] = React.useState(1);
-  const handleClick = (event) => {
-    axios
-      .post(`${server}/click`, {
-        x: event.pageX,
-        y: event.pageY,
-        width: innerWidth,
-        height: innerHeight,
-        click,
-        location: window.location.pathname,
-      })
-      .then((res) => console.log(res.data))
-      .catch((e) => console.log(e.response?.data));
-    return setClick(click + 1);
+  const handleClick = (button) => {
+    ClickAction(button, time, window.localStorage.getItem("username"));
+    setTime(0);
   };
 
   useEffect(() => {
-    window.addEventListener("click", handleClick);
-
     axios
       .get("http://dev.farizdotid.com/api/daerahindonesia/provinsi")
       .then((res) => setListProvinsi(res.data.provinsi));
     setRegister(JSON.parse(localStorage.getItem("register")));
+
+    let interval = setInterval(() => {
+      setTime((time) => time + 1);
+    }, 100);
+    () => clearInterval(interval);
   }, []);
 
   return (
@@ -310,6 +303,7 @@ export default function Domisili() {
                         Provinsi*
                       </Typography>
                       <NativeSelect
+                        onClick={() => handleClick("pilih provinsi")}
                         onChange={handleProvinsi}
                         required
                         value={provinsi}
@@ -338,6 +332,7 @@ export default function Domisili() {
                         Kabupaten/Kota*
                       </Typography>
                       <NativeSelect
+                        onClick={() => handleClick("pilih kabupaten/kota")}
                         required
                         onChange={handleKabupaten}
                         value={kabupaten}
@@ -381,6 +376,7 @@ export default function Domisili() {
                   <TableRow sx={{ border: 3, borderColor: "none" }}>
                     <TableCell colSpan={2}>
                       <Button
+                        onClick={() => handleClick("button continue")}
                         type="submit"
                         sx={{
                           background: "#040C1F",

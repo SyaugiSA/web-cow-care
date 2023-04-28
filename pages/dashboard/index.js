@@ -24,6 +24,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import axios from "axios";
 import { server } from "./../../lib/server";
+import { ClickAction } from "../../lib/click";
 
 const fontFamily = "Poppins";
 
@@ -38,27 +39,17 @@ export default function PermanentDrawerLeft() {
 
   const [kabupaten, setKabupaten] = React.useState("");
 
-  const [click, setClick] = React.useState(1);
-  const handleClick = (event) => {
-    axios
-      .post(`${server}/click`, {
-        x: event.pageX,
-        y: event.pageY,
-        width: innerWidth,
-        height: innerHeight,
-        click,
-        location: window.location.pathname,
-      })
-      .then((res) => console.log(res.data))
-      .catch((e) => console.log(e.response?.data));
-    return setClick(click + 1);
+  const [time, setTime] = React.useState(1);
+
+  const handleClick = (button) => {
+    ClickAction(button, time, window.localStorage.getItem("username"));
+    setTime(0);
   };
 
   React.useEffect(() => {
-    window.addEventListener("click", handleClick);
-
     const email = localStorage.getItem("mailLogin");
     const token = localStorage.getItem("token");
+    if (!token) router.push("/login");
     axios
       .get(`${server}/user/${email}`, {
         headers: { authorization: `Bearer ${token}` },
@@ -77,6 +68,11 @@ export default function PermanentDrawerLeft() {
             setKabupaten(kot[0].nama);
           });
       });
+
+    let interval = setInterval(() => {
+      setTime((time) => time + 1);
+    }, 100);
+    () => clearInterval(interval);
   }, []);
 
   const SubjectField = styled(TextField)({
@@ -105,6 +101,7 @@ export default function PermanentDrawerLeft() {
       </Head>
 
       <Sidebar
+        click={handleClick}
         nama={`${data.nama_depan} ${data.nama_belakang}`}
         kota={kabupaten}
       />
@@ -262,6 +259,7 @@ export default function PermanentDrawerLeft() {
                     <TableCell colSpan={2}>
                       <Box sx={{ display: "flex", justifyContent: "center" }}>
                         <Button
+                          onClick={() => handleClick("tombol update")}
                           variant="contained"
                           sx={{
                             background: "#040C1F",

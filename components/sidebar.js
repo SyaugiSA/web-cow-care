@@ -16,11 +16,9 @@ import { Box } from "@mui/material";
 import { Drawer } from "@mui/material";
 import { AppBar } from "@mui/material";
 import { CssBaseline } from "@mui/material";
-import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 import { DashboardIcon, ProductIcon, ProfileIcon, SettingsIcon } from "./icon";
 
 const data = [
@@ -30,19 +28,9 @@ const data = [
     link: "/dashboard",
   },
   {
-    title: "Produk",
-    icon: <ProductIcon />,
-    link: "/dashboard/produk",
-  },
-  {
     title: "Profil",
     icon: <ProfileIcon />,
     link: "/dashboard/profil",
-  },
-  {
-    title: "Pengaturan",
-    icon: <SettingsIcon />,
-    link: "/dashboard/pengaturan",
   },
 ];
 const fontFamily = "Poppins";
@@ -88,7 +76,7 @@ const SearchBar = styled((props) => (
   },
 }));
 
-export default function Sidebar({ nama, kota }) {
+export default function Sidebar({ nama, kota, click }) {
   const router = useRouter();
 
   return (
@@ -193,7 +181,10 @@ export default function Sidebar({ nama, kota }) {
           {data.map((item, i) => (
             <ListItem key={i} disablePadding>
               <Link href={item.link}>
-                <ListItemButton sx={{ color: "#81858F" }}>
+                <ListItemButton
+                  sx={{ color: "#81858F" }}
+                  onClick={() => click(`halaman ${item.title}`)}
+                >
                   <ListItemIcon>{item.icon}</ListItemIcon>
                   <ListItemText>
                     <Typography sx={{ fontFamily }}>{item.title}</Typography>
@@ -214,7 +205,10 @@ export default function Sidebar({ nama, kota }) {
               router.push("/login");
             }}
           >
-            <ListItemButton sx={{ color: "#81858F" }}>
+            <ListItemButton
+              sx={{ color: "#81858F" }}
+              onClick={() => click("tombol keluar")}
+            >
               <ListItemIcon>
                 <svg
                   width="18"

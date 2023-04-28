@@ -17,6 +17,7 @@ import Navbar from "../components/navbar";
 import Head from "next/head";
 import axios from "axios";
 import { server } from "./../lib/server";
+import { ClickAction } from "../lib/click";
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
@@ -43,7 +44,6 @@ export default function Home() {
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
   const maxSteps = pengembang.length;
-  const [click, setClick] = React.useState(1);
   const [time, setTime] = React.useState(1);
 
   const handleNext = () => {
@@ -56,29 +56,8 @@ export default function Home() {
     setActiveStep(step);
   };
 
-  const handleClick = (event) => {
-    axios
-      .post(`${server}/click`, {
-        x: event.pageX,
-        y: event.pageY,
-        width: innerWidth,
-        height: innerHeight,
-        click,
-        location: window.location.pathname,
-        time,
-      })
-      .then((res) => console.log(res.data))
-      .catch((e) => console.log(e.response?.data));
-    // console.log({
-    //   x: event.pageX,
-    //   y: event.pageY,
-    //   width: innerWidth,
-    //   height: innerHeight,
-    //   click,
-    //   location: window.location.pathname,
-    // time,
-    // });
-    setClick(click++);
+  const handleClick = (button) => {
+    ClickAction(button, time, window.localStorage.getItem("username"));
     setTime(0);
   };
 
@@ -87,7 +66,8 @@ export default function Home() {
       setTime((time) => time + 1);
     }, 100);
     () => clearInterval(interval);
-    window.addEventListener("click", handleClick);
+    const username = prompt("Masukkan nama anda");
+    window.localStorage.setItem("username", username);
   }, []);
 
   return (
@@ -96,7 +76,7 @@ export default function Home() {
         <title>MooCare</title>
       </Head>
 
-      <Navbar />
+      <Navbar action={handleClick} />
       <Container maxWidth="lg" sx={{ mt: { md: 18, xs: 9 } }}>
         <Box
           display="flex"
@@ -152,6 +132,7 @@ export default function Home() {
             </Typography>
 
             <Button
+              onClick={() => handleClick("selengkapnya 1")}
               variant="contained"
               endIcon={<ArrowForwardIos sx={{ fill: "black" }} />}
               sx={{
@@ -240,6 +221,7 @@ export default function Home() {
               </Typography>
 
               <Button
+                onClick={() => handleClick("selengkapnya 2")}
                 endIcon={<ArrowForwardIos />}
                 variant="contained"
                 sx={{
@@ -406,6 +388,7 @@ export default function Home() {
 
           <Box display="flex" justifyContent="center">
             <Button
+              onClick={() => handleClick("hubungi kami")}
               variant="contained"
               startIcon={<WhatsApp sx={{ fill: "black" }} />}
               sx={{

@@ -18,6 +18,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { server } from "./../lib/server";
 import SlideTransition from "../components/SlideTransition";
+import { ClickAction } from "../lib/click";
 
 const fontFamily = "Poppins";
 const color1 = "#ffffff";
@@ -31,8 +32,14 @@ export default function Login() {
   const [checked, setChecked] = useState(false);
   const [message, setMessage] = useState("");
   const [snack, setSnack] = useState(false);
+  const [time, setTime] = useState(1);
 
   const handleClose = () => setSnack(false);
+
+  const handleClick = (button) => {
+    ClickAction(button, time, window.localStorage.getItem("username"));
+    setTime(0);
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -54,36 +61,24 @@ export default function Login() {
         router.push("/dashboard");
       })
       .catch((err) => {
+        // console.log(err);
         var msg = err.response?.data.message;
         setMessage(msg);
         setSnack(true);
       });
   };
 
-  const [click, setClick] = useState(1);
-  const handleClick = (event) => {
-    axios
-      .post(`${server}/click`, {
-        x: event.pageX,
-        y: event.pageY,
-        width: innerWidth,
-        height: innerHeight,
-        click,
-        location: window.location.pathname,
-      })
-      .then((res) => console.log(res.data))
-      .catch((e) => console.log(e.response?.data));
-    return setClick(click + 1);
-  };
-
   useEffect(() => {
-    window.addEventListener("click", handleClick);
-
     const mail = localStorage.getItem("email");
     if (mail) {
       setEmail(mail);
       setChecked(!checked);
     }
+
+    let interval = setInterval(() => {
+      setTime((time) => time + 1);
+    }, 100);
+    () => clearInterval(interval);
   }, []);
 
   return (
@@ -286,6 +281,7 @@ export default function Login() {
               </Box>
               <br />
               <Button
+                onClick={() => handleClick("tombol masuk")}
                 type="submit"
                 sx={{
                   backgroundColor: color2,
@@ -306,6 +302,7 @@ export default function Login() {
             </Divider>
 
             <Button
+              disabled
               type="button"
               href="/login/google"
               startIcon={<GoogleIcon sx={{ fill: color2 }} />}
@@ -327,7 +324,10 @@ export default function Login() {
               <Typography component="span" variant="body1">
                 {"Belum punya akun?"}
               </Typography>
-              <Link href="/register/info-pribadi">
+              <Link
+                href="/register/info-pribadi"
+                onClick={() => handleClick("tombol register")}
+              >
                 <Typography
                   component="span"
                   variant="body1"
