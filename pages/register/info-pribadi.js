@@ -411,7 +411,7 @@ export default function InfoPribadi() {
                           }
                           control={<CheckedIcon />}
                           onClick={() => {
-                            handleChecked;
+                            handleChecked();
                             handleClick("checkbox");
                           }}
                           sx={{
