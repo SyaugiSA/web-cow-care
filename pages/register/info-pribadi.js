@@ -59,49 +59,6 @@ export default function InfoPribadi() {
     return checked ? check : unCheck;
   };
 
-  const ButtonType = () => {
-    const aktif = (
-      <Button
-        onClick={() => handleClick("tombol masuk")}
-        type="submit"
-        sx={{
-          background: "#040C1F",
-          color: "white",
-          fontFamily,
-          width: "100%",
-          "&:hover": { background: "#040C1F" },
-        }}
-      >
-        Daftar Akun
-      </Button>
-    );
-
-    const mati = (
-      <Button
-        onClick={() => handleClick("tombol masuk")}
-        disabled
-        sx={{
-          background: "rgba(0, 0, 0, 0.15)",
-          fontFamily,
-          width: "100%",
-          "&:hover": { background: "#040C1F" },
-        }}
-      >
-        Daftar Akun
-      </Button>
-    );
-
-    return namaDepan ||
-      namaBelakang ||
-      email ||
-      password ||
-      rePassword ||
-      !checked ||
-      !check
-      ? mati
-      : aktif;
-  };
-
   const handleClose = () => setSnack(false);
 
   const formik = useFormik({
@@ -424,7 +381,39 @@ export default function InfoPribadi() {
 
                     <TableRow sx={{ border: 3, borderColor: "none" }}>
                       <TableCell colSpan={2}>
-                        <ButtonType />
+                        <Button
+                          disabled={
+                            namaDepan ||
+                            namaBelakang ||
+                            email ||
+                            password ||
+                            rePassword ||
+                            !checked ||
+                            !check
+                              ? true
+                              : false
+                          }
+                          type="submit"
+                          sx={{
+                            background:
+                              namaDepan ||
+                              namaBelakang ||
+                              email ||
+                              password ||
+                              rePassword ||
+                              !checked ||
+                              !check
+                                ? "rgba(0, 0, 0, 0.15)"
+                                : "#040C1F",
+                            color: "white",
+                            fontFamily,
+                            width: "100%",
+                            "&:hover": { background: "#040C1F" },
+                          }}
+                          onClick={() => handleClick("tombol daftar")}
+                        >
+                          Daftar Akun
+                        </Button>
                       </TableCell>
                     </TableRow>
 

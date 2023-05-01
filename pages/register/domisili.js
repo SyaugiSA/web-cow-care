@@ -31,6 +31,7 @@ import Head from "next/head";
 import { useFormik } from "formik";
 import { server } from "./../../lib/server";
 import SlideTransition from "../../components/SlideTransition";
+import { ClickAction } from "../../lib/click";
 
 const fontFamily = "Poppins";
 const color1 = "#ffffff";
