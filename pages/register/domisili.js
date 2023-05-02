@@ -104,6 +104,7 @@ export default function Domisili() {
       alamat: "",
     },
     onSubmit: (val) => {
+      handleClick("button continue");
       setReg({
         nohp: Number(`62${phone.nohp}`),
         provinsi: provinsi,
@@ -377,7 +378,6 @@ export default function Domisili() {
                   <TableRow sx={{ border: 3, borderColor: "none" }}>
                     <TableCell colSpan={2}>
                       <Button
-                        onClick={() => handleClick("button continue")}
                         type="submit"
                         sx={{
                           background: "#040C1F",
