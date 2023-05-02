@@ -104,7 +104,6 @@ export default function Domisili() {
       alamat: "",
     },
     onSubmit: (val) => {
-      () => handleClick("button continue");
       setReg({
         nohp: Number(`62${phone.nohp}`),
         provinsi: provinsi,
@@ -118,6 +117,7 @@ export default function Domisili() {
           setMessage(res.data.message);
           setSnack(true);
           localStorage.removeItem("register");
+          handleClick("button continue");
           return router.push("/login");
         })
         .catch((err) => {
