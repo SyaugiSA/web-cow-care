@@ -104,7 +104,7 @@ export default function Domisili() {
       alamat: "",
     },
     onSubmit: (val) => {
-      handleClick("button continue");
+      () => handleClick("button continue");
       setReg({
         nohp: Number(`62${phone.nohp}`),
         provinsi: provinsi,
