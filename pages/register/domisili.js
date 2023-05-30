@@ -75,7 +75,7 @@ export default function Domisili() {
   const [phone, setPhone] = useState({});
   const [message, setMessage] = useState("");
   const [snack, setSnack] = useState(false);
-  const [time, setTime] = useState(1);
+  const [time, setTime] = useState(0);
 
   const handlePhone = (event) => {
     setPhone({
@@ -139,8 +139,8 @@ export default function Domisili() {
     setRegister(JSON.parse(localStorage.getItem("register")));
 
     let interval = setInterval(() => {
-      setTime((time) => time + 1);
-    }, 100);
+      setTime((time) => (time += 1));
+    }, 1000);
     () => clearInterval(interval);
   }, []);
 

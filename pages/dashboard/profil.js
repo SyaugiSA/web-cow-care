@@ -71,7 +71,7 @@ export default function Profil() {
       .then((res) => setListKabupaten(res.data.kota_kabupaten));
   };
 
-  const [time, setTime] = React.useState(1);
+  const [time, setTime] = React.useState(0);
 
   const handleClick = (button) => {
     ClickAction(button, time, window.localStorage.getItem("username"));
@@ -111,8 +111,8 @@ export default function Profil() {
       .then((res) => setListProvinsi(res.data.provinsi));
 
     let interval = setInterval(() => {
-      setTime((time) => time + 1);
-    }, 100);
+      setTime((time) => (time += 1));
+    }, 1000);
     () => clearInterval(interval);
   }, []);
 

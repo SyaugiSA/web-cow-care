@@ -44,7 +44,7 @@ export default function Home() {
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
   const maxSteps = pengembang.length;
-  const [time, setTime] = React.useState(1);
+  const [time, setTime] = React.useState(0);
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -63,8 +63,8 @@ export default function Home() {
 
   useEffect(() => {
     let interval = setInterval(() => {
-      setTime((time) => time + 1);
-    }, 100);
+      setTime((time) => (time += 1));
+    }, 1000);
     () => clearInterval(interval);
     const username = prompt("Masukkan nama anda");
     window.localStorage.setItem("username", username);
@@ -77,6 +77,7 @@ export default function Home() {
       </Head>
 
       <Navbar action={handleClick} />
+      {/* {time} */}
       <Container maxWidth="lg" sx={{ mt: { md: 18, xs: 9 } }}>
         <Box
           display="flex"

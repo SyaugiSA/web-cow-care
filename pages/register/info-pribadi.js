@@ -45,7 +45,7 @@ export default function InfoPribadi() {
   const [snack, setSnack] = useState(false);
   const [message, setMessage] = useState("");
   const router = useRouter();
-  const [time, setTime] = useState(1);
+  const [time, setTime] = useState(0);
 
   const handleClick = (button) => {
     ClickAction(button, time, window.localStorage.getItem("username"));
@@ -89,8 +89,8 @@ export default function InfoPribadi() {
 
   useEffect(() => {
     let interval = setInterval(() => {
-      setTime((time) => time + 1);
-    }, 100);
+      setTime((time) => (time += 1));
+    }, 1000);
     () => clearInterval(interval);
   }, []);
 

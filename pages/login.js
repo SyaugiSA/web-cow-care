@@ -32,7 +32,7 @@ export default function Login() {
   const [checked, setChecked] = useState(false);
   const [message, setMessage] = useState("");
   const [snack, setSnack] = useState(false);
-  const [time, setTime] = useState(1);
+  const [time, setTime] = useState(0);
 
   const handleClose = () => setSnack(false);
 
@@ -76,8 +76,8 @@ export default function Login() {
     }
 
     let interval = setInterval(() => {
-      setTime((time) => time + 1);
-    }, 100);
+      setTime((time) => (time += 1));
+    }, 1000);
     () => clearInterval(interval);
   }, []);
 
@@ -281,7 +281,9 @@ export default function Login() {
               </Box>
               <br />
               <Button
-                onClick={() => handleClick("tombol masuk")}
+                onClick={() =>
+                  setTimeout(() => handleClick("tombol masuk"), 100)
+                }
                 type="submit"
                 sx={{
                   backgroundColor: color2,
