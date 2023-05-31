@@ -17,9 +17,11 @@ import {
   Select,
   MenuItem,
   Button,
+  IconButton,
+  Modal,
 } from "@mui/material";
 import Image from "next/image";
-import { ArrowForwardIos, BorderColor, Delete } from "@mui/icons-material";
+import { Add, ArrowForwardIos, BorderColor, Delete } from "@mui/icons-material";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import axios from "axios";
@@ -33,6 +35,8 @@ export default function PermanentDrawerLeft() {
   const [data, setData] = React.useState({});
   const [jenisKelamin, setJenisKelamin] = React.useState("");
   const onJenisKelamin = (e) => setJenisKelamin(e.target.value);
+  const [modalAdd, setModalAdd] = React.useState(false);
+  const [nama, setNama] = React.useState("");
 
   const [tipe, setTipe] = React.useState("");
   const onTipe = (e) => setTipe(e.target.value);
@@ -52,6 +56,15 @@ export default function PermanentDrawerLeft() {
     ClickAction(button, time, window.localStorage.getItem("username"));
     setTime(0);
   };
+
+  const getDevice = () =>
+    axios
+      .get(`${server}/device`, {
+        headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
+      })
+      .then((res) => {
+        setDeviceList(res.data.devices);
+      });
 
   React.useEffect(() => {
     const email = localStorage.getItem("mailLogin");
@@ -76,13 +89,7 @@ export default function PermanentDrawerLeft() {
           });
       });
 
-    axios
-      .get(`${server}/device`, {
-        headers: { authorization: `Bearer ${token}` },
-      })
-      .then((res) => {
-        setDeviceList(res.data.devices);
-      });
+    getDevice();
 
     let interval = setInterval(() => {
       setTime((time) => (time += 1));
@@ -109,11 +116,64 @@ export default function PermanentDrawerLeft() {
     },
   });
 
+  const addDevice = (e) => {
+    e.preventDefault();
+    axios
+      .post(
+        `${server}/device`,
+        { nama },
+        {
+          headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      )
+      .then((res) => {
+        getDevice();
+        return setModalAdd(false);
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <Box sx={{ display: "flex" }}>
       <Head>
         <title>MooCare-Dashboard</title>
       </Head>
+
+      <Modal open={modalAdd} onClose={() => setModalAdd(false)}>
+        <Box
+          width={400}
+          height={240}
+          sx={{ background: "white", mx: "auto", p: 3 }}
+        >
+          <Typography
+            variant="h5"
+            component="h3"
+            sx={{ fontFamily, fontWeight: 500, color: "black", mb: 3 }}
+          >
+            Add Device
+          </Typography>
+
+          <form onSubmit={(e) => addDevice(e)}>
+            <TextField
+              name="nama"
+              placeholder="Nama"
+              value={nama}
+              onChange={(e) => setNama(e.target.value)}
+            />
+            <br />
+            <Button type="submit" variant="contained" sx={{ mt: 3 }}>
+              Save
+            </Button>
+          </form>
+        </Box>
+      </Modal>
+
+      <IconButton
+        onClick={() => setModalAdd(true)}
+        sx={{ position: "fixed", background: "#040c1f", bottom: 30, right: 30 }}
+      >
+        <Add fontSize="large" />
+      </IconButton>
 
       <Sidebar
         click={handleClick}
