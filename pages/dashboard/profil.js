@@ -419,7 +419,9 @@ export default function Profil() {
 
           <Box display="flex" justifyContent="center" sx={{ mt: 5 }}>
             <Button
-              onClick={() => handleClick("tombol update")}
+              onClick={() =>
+                setTimeout(() => handleClick("tombol update"), 100)
+              }
               type="submit"
               variant="contained"
               sx={{
