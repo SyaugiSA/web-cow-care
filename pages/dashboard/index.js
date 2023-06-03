@@ -128,6 +128,7 @@ export default function PermanentDrawerLeft() {
       )
       .then((res) => {
         getDevice();
+        handleClick("tombol save");
         return setModalAdd(false);
       })
       .catch((err) => console.log(err));
@@ -169,7 +170,10 @@ export default function PermanentDrawerLeft() {
       </Modal>
 
       <IconButton
-        onClick={() => setModalAdd(true)}
+        onClick={() => {
+          setModalAdd(true);
+          handleClick("ikon tambah");
+        }}
         sx={{ position: "fixed", background: "#040c1f", bottom: 30, right: 30 }}
       >
         <Add fontSize="large" />
