@@ -1,7 +1,7 @@
 services:
   web:
     build: .
-    command: npm run start -p 3001
+    command: yarn start -p 3001
     ports:
       - "3001:3001"
     environment:
