@@ -121,6 +121,7 @@ export default function Domisili() {
           return router.push("/login");
         })
         .catch((err) => {
+          console.log(err);
           setMessage(err.response?.data?.message);
           setSnack(true);
         });

@@ -158,7 +158,7 @@ export default function Profil() {
           />
         </Box>
 
-        <form>
+        <form onSubmit={(e) => e.preventDefault()}>
           <Box display="flex" justifyContent="space-evenly">
             <Box>
               <Table sx={{ width: 450 }}>
@@ -419,9 +419,6 @@ export default function Profil() {
 
           <Box display="flex" justifyContent="center" sx={{ mt: 5 }}>
             <Button
-              onClick={() =>
-                setTimeout(() => handleClick("tombol update"), 100)
-              }
               type="submit"
               variant="contained"
               sx={{
