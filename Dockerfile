@@ -1,5 +1,5 @@
 FROM node:latest
 WORKDIR /app
 COPY . .
-RUN yarn install --force
-RUN yarn build
+RUN npm install --force
+RUN npm run build
