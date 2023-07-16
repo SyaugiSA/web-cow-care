@@ -6,4 +6,3 @@ services:
       - "3001:3001"
     environment:
       - SERVER_API=http://103.175.216.72/api/moocare
-    image: node:latest
