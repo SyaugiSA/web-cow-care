@@ -1,6 +1,7 @@
 FROM node:latest
 WORKDIR /app
 COPY package.json .
-RUN npm install --legacy-peer-deps
+RUN npm install -g -s --no-progress yarn
+RUN yarn
 COPY . .
-RUN npm run build
+RUN yarn build
