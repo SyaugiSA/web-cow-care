@@ -3,4 +3,3 @@ WORKDIR /app
 COPY /node_module .
 COPY /.next .
 COPY . .
-RUN npx next build
