@@ -1,5 +1,5 @@
 FROM node:latest
 WORKDIR /app
-RUN npm install
 COPY /.next .
 COPY . .
+RUN npm install
